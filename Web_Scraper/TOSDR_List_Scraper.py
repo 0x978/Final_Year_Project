@@ -3,9 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
+# This class scrapes a list of URLS for which TOS;DR has summaries for.
 
-class WebScraperAdvanced:
-    index = 0
+class TOSDRListScraper:
     TOSDR_URL = "https://edit.tosdr.org/documents"
 
     def fetchTOSList(self):
@@ -43,5 +43,5 @@ class WebScraperAdvanced:
             file.write(f"{text} {href}\n")
 
 
-scraper = WebScraperAdvanced()
+scraper = TOSDRListScraper()
 scraper.fetchTOSList()
