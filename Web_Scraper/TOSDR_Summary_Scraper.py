@@ -21,6 +21,9 @@ class TOSDR_Summary_Scraper:
         h1_elements = soup.find_all(['h1'])
         site_name = text_regex.search(str(h1_elements)).group(1)
 
+        if len(table_items) == 0: # If there is no summary on this page, exit early.
+            return [site_name, None]
+
         extracted_point_array = [] # Stores all extracted summary points.
         for item in table_items:
             for child in item.children:
@@ -35,7 +38,6 @@ class TOSDR_Summary_Scraper:
         return [site_name,extracted_point_array]
 
 
-
-scraper = TOSDR_Summary_Scraper()
-scraper.scrape_from_url("https://edit.tosdr.org/services/230")
-print(scraper.scrape_from_url("https://edit.tosdr.org/services/230"))
+# Below for testing purposes
+# scraper = TOSDR_Summary_Scraper()
+# print(scraper.scrape_from_url("https://edit.tosdr.org/documents/19890"))

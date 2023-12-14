@@ -36,11 +36,11 @@ class TOSDRListScraper:
 
             if found_text and "terms" in found_text.lower():
                 print(found_text, found_href)
-                self.write_to_output(found_text, found_href)
+                self.write_to_output(found_href)
 
-    def write_to_output(self, text, href):
+    def write_to_output(self,href):
         with open("URL_List.txt", "a", encoding="utf-8") as file:
-            file.write(f"{text} {href}\n")
+            file.write(f"{href}\n")
 
 
 scraper = TOSDRListScraper()

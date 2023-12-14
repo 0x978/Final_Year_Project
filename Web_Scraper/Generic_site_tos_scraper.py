@@ -12,12 +12,15 @@ class GenericSiteTosScraper:
     def scrape(self, website_name):
         terms_url = self.find_terms_url(website_name)
 
+        if not terms_url:
+            return None
+
         response = requests.get(terms_url)
         response.encoding = 'utf-8'
 
         if response.status_code != 200:
             print(f'Error ({response.status_code}) with site URL: {terms_url}')
-            return
+            return None
 
         soup = BeautifulSoup(response.text, 'html.parser')
         potential_terms_tags = soup.find_all(['p', 'div', 'span', 'article', 'section', 'b', 'ul', 'li'])
