@@ -27,7 +27,7 @@ class TOSDR_Summary_Scraper:
         if response.status_code != 200:
             return None
 
-        text_regex = re.compile(r'(?<=">)(.+?)(?=<)')  # Regular expression extracts text from html elements
+        text_regex = re.compile(r'(?<=">)(.+?)(?=<)')  # Regular expression extracts text from any html element
         soup = BeautifulSoup(response.text, 'html.parser')
         table_items = soup.find_all(['tr'])  # create a list of all table rows
 
@@ -45,7 +45,7 @@ class TOSDR_Summary_Scraper:
 
                 if "<td" in str_child:  # Only look at the table cell elements
                     # Extracting the summary point using basic pattern matching
-                    if "title=\"View more details\"" in str_child:  # only found in element containing summary
+                    if "title=\"View more details\"" in str_child:  # property only found in element containing summary
                         text = text_regex.search(str_child)
                         extracted_point = text.group(1)
 
@@ -124,6 +124,6 @@ class TOSDR_Summary_Scraper:
 
 
 # Below for testing purposes
-scraper = TOSDR_Summary_Scraper()
+#scraper = TOSDR_Summary_Scraper()
 #print(scraper.scrape_from_url("https://edit.tosdr.org/services/1448"))
 # print(scraper.find_source("https://edit.tosdr.org/points/1082"))
