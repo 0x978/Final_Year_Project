@@ -1,8 +1,10 @@
 import os
+from duckduckgo_search import DDGS
 from Generic_site_tos_scraper import GenericSiteTosScraper
 from TOSDR_Summary_Scraper import TOSDR_Summary_Scraper
 import time
-from googlesearch import search
+from duckpy import Client
+
 
 ''' This class will manage and run the generic site TOS scraper and TOSDR summary scraper to:
  - Fetch a summary of a service (e.g. Facebook) from TOSDR for both it's Privacy Policy and Terms of service if possible
@@ -117,9 +119,9 @@ class Controller:
     # Given a website name and the type of document to look for, returns the URL to this document.
     def search_for_document(self, website_name, type_of_document):
         try:
-            results = search(f'{website_name} {type_of_document}', num_results=1)
-            top_result = next(results)
-            return top_result
+            duckduckgo = Client()
+            results = duckduckgo.search(query=f'{website_name} {type_of_document}')
+            return results[0].url
         except StopIteration:
             return False
 
