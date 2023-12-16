@@ -76,4 +76,4 @@ class GenericSiteTosScraper:
 
 
 # scraper = GenericSiteTosScraper()
-# print(scraper.scrape("https://hypixel.net/terms"))
+# print(scraper.scrape("http://about.couchsurfing.com.s3-website-us-east-1.amazonaws.com/about/terms-of-use/"))

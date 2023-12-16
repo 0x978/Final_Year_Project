@@ -13,13 +13,14 @@ from bs4 import BeautifulSoup, ResultSet
 '''
 
 class TOSDR_Summary_Scraper:
-    serviceInformation = {
-        "Website Name": None,
-        "Terms_URL": None,  # The URL to the TOS for the current service being examined
-        "Privacy_URL": None,  # The url to the Privacy Policy for the current service being examined.
-        "Terms_Summaries": [],  # Contains all the summary points related to the terms and conditions of this service
-        "Privacy_Summaries": [],  # Contains all the summary points related to the privacy policy of this service.
-    }
+    def __init__(self):
+        self.serviceInformation = {
+            "Website Name": None,
+            "Terms_URL": None,  # The URL to the TOS for the current service being examined
+            "Privacy_URL": None,  # The url to the Privacy Policy for the current service being examined.
+            "Terms_Summaries": [], # Contains all the summary points related to the terms and conditions of this service
+            "Privacy_Summaries": [],  # Contains all the summary points related to the privacy policy of this service.
+        }
 
     def scrape_from_url(self, url):
         response = requests.get(url)

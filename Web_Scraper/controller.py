@@ -4,7 +4,6 @@ from TOSDR_Summary_Scraper import TOSDR_Summary_Scraper
 import time
 from googlesearch import search
 
-
 ''' This class will manage and run the generic site TOS scraper and TOSDR summary scraper to:
  - Fetch a summary of a service (e.g. Facebook) from TOSDR for both it's Privacy Policy and Terms of service if possible
  - Store the URL for the source of these summaries (i.e. the URL to the privacy policy / TOS)
@@ -14,8 +13,8 @@ from googlesearch import search
  WARNING: This will take many hours to run to collect such a vast dataset.
 '''
 
+
 class Controller:
-    index = 0  # If the scraper crashes or times out, this will be used to know where it got up to in the list.
     overall_start_time = time.time()
 
     def main(self):
@@ -40,10 +39,12 @@ class Controller:
                     terms_summaries = scraped_summary["Terms_Summaries"]
                     privacy_summaries = scraped_summary["Privacy_Summaries"]
 
+
                     print(f'{website_name}: Scraped {len(terms_summaries)} terms summaries and '
                           f'{len(privacy_summaries)} privacy summaries. Terms URL?: {terms_URL is not None} '
                           f'Privacy URL?: {privacy_URL is not None} | time elapsed: {time_taken} seconds |'
-                          f'Overall time elapsed: {(time.time() - self.overall_start_time)}')
+                          f'URL_List URL: {URL}'
+                          f'| Overall time elapsed: {round(time.time() - self.overall_start_time)} seconds|')
 
                     # If we received terms or privacy policy summary but not their respective URL,
                     # google search for the URL to these documents.
@@ -52,9 +53,9 @@ class Controller:
                     if privacy_summaries and not privacy_URL:
                         privacy_URL = self.search_for_document(website_name, type_of_document="Privacy Policy")
 
-                    # If we have terms and conditions summary, and a URL to the actual terms and conditions
-                    if terms_summaries and terms_URL:
-                        joined_terms_summary = '. '.join(terms_summaries) # Join summary into a paragraph.
+                    # If we have a reasonable length terms and conditions summary, and a URL to the actual terms
+                    if terms_summaries and len(terms_summaries) >= 4 and terms_URL:
+                        joined_terms_summary = '. '.join(terms_summaries)  # Join summary into a paragraph.
 
                         # Scrapes the TOS of a given website, stored in this variable
                         service_terms = generic_site_scraper.scrape(terms_URL)
@@ -66,15 +67,16 @@ class Controller:
                             print(f'Backup ran, result: {service_terms}')
 
                         # If successfully found both the full TOS and a summary, write it to disk.
-                        if service_terms and joined_terms_summary:
+                        # also check the scraped terms are a reasonable length to ensure it was properly scraped.
+                        if service_terms and len(service_terms) > 300 and joined_terms_summary:
                             self.write_to_file(text=joined_terms_summary, website_name=website_name,
                                                document_type="Terms_Summary")
 
                             self.write_to_file(text=service_terms, website_name=website_name,
-                                               document_type=f'{website_name}_Terms')
+                                               document_type=f'Terms')
 
-                    # If we have privacy policy summary, and a URL to the actual privacy policy
-                    if privacy_summaries and privacy_URL:
+                    # If we have a reasonable length privacy policy summary, and a URL to the actual privacy policy
+                    if privacy_summaries and len(privacy_summaries) >= 4 and privacy_URL:
                         joined_privacy_summary = '. '.join(privacy_summaries)
                         privacy_policy = generic_site_scraper.scrape(privacy_URL)
 
@@ -84,11 +86,12 @@ class Controller:
                             privacy_policy = generic_site_scraper.scrape(privacy_URL)
 
                         # If successfully received a summary and a privacy policy, write them to file
-                        if privacy_policy and privacy_summaries:
+                        # also check the privacy policy is a reasonable length to ensure it was properly scraped.
+                        if privacy_policy and len(privacy_policy) > 300 and privacy_summaries:
                             self.write_to_file(text=joined_privacy_summary, website_name=website_name,
                                                document_type="Privacy_Policy_Summary")
                             self.write_to_file(text=privacy_policy, website_name=website_name,
-                                               document_type=f'{website_name}_Privacy_Policy')
+                                               document_type=f'Privacy_Policy')
 
                 # If something went wrong with receiving a scraped summary, wait 30 seconds and move to next service
                 else:
