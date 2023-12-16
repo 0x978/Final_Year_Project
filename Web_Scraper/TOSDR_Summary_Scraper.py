@@ -35,7 +35,8 @@ class TOSDR_Summary_Scraper:
 
         # Picking out the website name.
         h1_elements = soup.find_all(['h1'])
-        self.serviceInformation["Website Name"] = text_regex.search(str(h1_elements)).group(1)
+        website_name = text_regex.search(str(h1_elements)).group(1)
+        self.serviceInformation["Website Name"] = website_name
 
         if len(table_items) == 0:  # If there is no summary on this page, exit early.
             return self.serviceInformation
@@ -55,6 +56,13 @@ class TOSDR_Summary_Scraper:
                         # Will also update the TOS / Privacy Policy URL for this service if necessary.
                         element_href = self.find_href_from_element(str_child)
                         source = self.find_source(f'https://edit.tosdr.org/{element_href}')
+
+                        # Replace any references to the service in the summary to "This service"
+                        # Convert to lowercase, so it can be ensured a match is found
+                        lower_case_website_name = website_name.lower()
+                        lower_case_point = extracted_point.lower()
+                        if lower_case_website_name in lower_case_point:
+                            extracted_point = lower_case_point.replace(lower_case_website_name, "This service")
 
                         # Depending on the source, append this summary point to appropriate array:
                         if source == "terms":
