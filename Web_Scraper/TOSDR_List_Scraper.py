@@ -4,10 +4,12 @@ from bs4 import BeautifulSoup
 import time
 
 
-# Scrapes a list of services for which TOSDR has summary points for.
-# The resulting list is 1695 services long.
-# Timeouts are used to not flood any website with requests
-# As a result this takes about 15 minutes to execute
+'''
+Scrapes a list of services for which TOSDR has summary points for.
+The resulting list is 1695 services long.
+Timeouts are used to not flood any website with requests
+As a result this takes about 15 minutes to execute
+'''
 
 class TOSDRListScraper:
     page_number = 289  # Start page number at 289 - The first page with any useful summaries.

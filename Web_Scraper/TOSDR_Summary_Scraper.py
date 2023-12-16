@@ -4,12 +4,13 @@ import requests
 from bs4 import BeautifulSoup, ResultSet
 
 
-# This class, when given a service's URL will:
-# - Extract the terms and conditions URL (if present).
-# - Extract the Privacy Policy URL (if present).
-# - Extract any summary points pertaining to this service's Terms and Conditions.
-# - Extract any summary points pertaining to this service's Privacy Policy.
-# This can take up to 2 minutes per service.
+'''This class, when given a service's URL will:
+  - Extract the terms and conditions URL (if present).
+  - Extract the Privacy Policy URL (if present).
+  - Extract any summary points pertaining to this service's Terms and Conditions.
+  - Extract any summary points pertaining to this service's Privacy Policy.
+  This can take up to 5 minutes per service.
+'''
 
 class TOSDR_Summary_Scraper:
     serviceInformation = {

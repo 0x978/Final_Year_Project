@@ -5,10 +5,18 @@ import time
 from googlesearch import search
 
 
-# This class controls all the other scrapers, running them and storing results.
+''' This class will manage and run the generic site TOS scraper and TOSDR summary scraper to:
+ - Fetch a summary of a service (e.g. Facebook) from TOSDR for both it's Privacy Policy and Terms of service if possible
+ - Store the URL for the source of these summaries (i.e. the URL to the privacy policy / TOS)
+ - Scrape the TOS / Privacy policy for each service.
+ - Write all this data to disk.
+ 
+ WARNING: This will take many hours to run to collect such a vast dataset.
+'''
 
 class Controller:
     index = 0  # If the scraper crashes or times out, this will be used to know where it got up to in the list.
+    overall_start_time = time.time()
 
     def main(self):
         with open("URL_List.txt") as file:  # Open URL list scraped by "TOSDR list scraper"
@@ -34,7 +42,8 @@ class Controller:
 
                     print(f'{website_name}: Scraped {len(terms_summaries)} terms summaries and '
                           f'{len(privacy_summaries)} privacy summaries. Terms URL?: {terms_URL is not None} '
-                          f'Privacy URL?: {privacy_URL is not None} | time elapsed: {time_taken} seconds')
+                          f'Privacy URL?: {privacy_URL is not None} | time elapsed: {time_taken} seconds |'
+                          f'Overall time elapsed: {(time.time() - self.overall_start_time)}')
 
                     # If we received terms or privacy policy summary but not their respective URL,
                     # google search for the URL to these documents.

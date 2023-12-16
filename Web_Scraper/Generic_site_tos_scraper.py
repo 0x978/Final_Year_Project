@@ -3,7 +3,12 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-# This class attempts to scrape the Terms of Service from a given website, by name.
+'''
+This class scrapes the Terms of Service or Privacy Policy data from a given page URL.
+It attempts to remove any irrelevant information, but due to the diversity of different websites, is imperfect
+Thus, the produced TOS and Privacy policy might include some irrelevant information from the website.
+If an error occurs accessing this, it returns "None"
+'''
 
 class GenericSiteTosScraper:
 
