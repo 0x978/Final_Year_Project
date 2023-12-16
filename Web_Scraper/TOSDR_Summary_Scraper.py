@@ -41,6 +41,11 @@ class TOSDR_Summary_Scraper:
         if len(table_items) == 0:  # If there is no summary on this page, exit early.
             return self.serviceInformation
 
+        # TOSDR puts "Discontinued" in the names of services which are no longer available.
+        # Don't include these as will not be able to scrape the TOS documents.
+        if "discontinued" in website_name.lower():
+            return self.serviceInformation
+
         for item in table_items:
             # Searching for elements which contains a summary point.
             for child in item.children:
@@ -134,6 +139,6 @@ class TOSDR_Summary_Scraper:
 
 
 # Below for testing purposes
-#scraper = TOSDR_Summary_Scraper()
-#print(scraper.scrape_from_url("https://edit.tosdr.org/services/1448"))
+# scraper = TOSDR_Summary_Scraper()
+# print(scraper.scrape_from_url("https://edit.tosdr.org/services/2407"))
 # print(scraper.find_source("https://edit.tosdr.org/points/1082"))
