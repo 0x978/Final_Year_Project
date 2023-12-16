@@ -61,7 +61,7 @@ class Controller:
                         service_terms = generic_site_scraper.scrape(terms_URL)
 
                         # If the service terms URL on the website is invalid, look for it as it probably moved.
-                        if service_terms is None:
+                        if service_terms is None or len(service_terms) <= 300:
                             terms_URL = self.search_for_document(website_name, type_of_document="Terms and Conditions")
                             service_terms = generic_site_scraper.scrape(terms_URL)
                             print(f'Backup ran, result: {service_terms}')
@@ -81,7 +81,7 @@ class Controller:
                         privacy_policy = generic_site_scraper.scrape(privacy_URL)
 
                         # If the service Privacy Policy URL on the website is invalid, look for it as it probably moved.
-                        if privacy_policy is None:
+                        if privacy_policy is None or len(privacy_policy) <= 300:
                             privacy_URL = self.search_for_document(website_name, type_of_document="Privacy Policy")
                             privacy_policy = generic_site_scraper.scrape(privacy_URL)
 
@@ -102,6 +102,9 @@ class Controller:
     # Places in a directory named after the website the text comes from.
     # Names the text file whatever is passed in the "document_type" parameter
     def write_to_file(self, text, website_name, document_type):
+        # Hacky method to remove non-alphanumeric and non-space characters from website name
+        website_name = ''.join(char for char in website_name if char.isalnum() or char.isspace()).rstrip()
+
         os.makedirs('scraped_data', exist_ok=True)
         directory_path = "scraped_data/" + website_name
         os.makedirs(directory_path, exist_ok=True)

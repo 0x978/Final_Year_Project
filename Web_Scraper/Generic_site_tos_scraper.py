@@ -10,6 +10,7 @@ Thus, the produced TOS and Privacy policy might include some irrelevant informat
 If an error occurs accessing this, it returns "None"
 '''
 
+
 class GenericSiteTosScraper:
 
     def scrape(self, URL):
@@ -17,7 +18,14 @@ class GenericSiteTosScraper:
         if not URL:
             return None
 
-        response = requests.get(URL)
+        try:
+            headers = {
+                'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                              "Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
+            response = requests.get(URL, headers=headers)
+        except:
+            return None
+
         response.encoding = 'utf-8'
 
         # If the website gives an invalid response code, return None.
@@ -30,7 +38,7 @@ class GenericSiteTosScraper:
         # find the potential tags which might contain the terms and conditions data.
         # These are tags which usually contain long text
         potential_terms_tags = soup.find_all(['p', 'div', 'span', 'article', 'section', 'b'])
-        unique_content = [] # Will be updated to hold any information not yet scraped on this site.
+        unique_content = []  # Will be updated to hold any information not yet scraped on this site.
 
         for element in potential_terms_tags:  # consider only these elements
 
@@ -50,7 +58,7 @@ class GenericSiteTosScraper:
             # Check if element has a href element. If it does, conclude it's not relevant to the terms / privacy policy
             pattern = r'href="([^"]*)"'
             match = re.search(pattern, str_element)
-            if match: # go to next element
+            if match:  # go to next element
                 continue
 
             # Extract the CSS class of the element
@@ -67,13 +75,12 @@ class GenericSiteTosScraper:
                     continue
 
             if element.get_text():
-                cleaned_text = re.sub(r'\s+', ' ', element.get_text().strip()) # Remove unnecessary space
+                cleaned_text = re.sub(r'\s+', ' ', element.get_text().strip())  # Remove unnecessary space
                 if cleaned_text not in unique_content:  # try not to catch things more than once (potentially slow)
                     unique_content.append(cleaned_text)
 
         unique_content = ' '.join(unique_content)
         return unique_content
 
-
 # scraper = GenericSiteTosScraper()
-# print(scraper.scrape("http://about.couchsurfing.com.s3-website-us-east-1.amazonaws.com/about/terms-of-use/"))
+# print(scraper.scrape("https://gettr.com/terms"))

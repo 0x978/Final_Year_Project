@@ -3,7 +3,6 @@ import time
 import requests
 from bs4 import BeautifulSoup, ResultSet
 
-
 '''This class, when given a service's URL will:
   - Extract the terms and conditions URL (if present).
   - Extract the Privacy Policy URL (if present).
@@ -12,18 +11,25 @@ from bs4 import BeautifulSoup, ResultSet
   This can take up to 5 minutes per service.
 '''
 
+
 class TOSDR_Summary_Scraper:
     def __init__(self):
         self.serviceInformation = {
             "Website Name": None,
             "Terms_URL": None,  # The URL to the TOS for the current service being examined
             "Privacy_URL": None,  # The url to the Privacy Policy for the current service being examined.
-            "Terms_Summaries": [], # Contains all the summary points related to the terms and conditions of this service
+            "Terms_Summaries": [],# Contains all the summary points related to the terms and conditions of this service
             "Privacy_Summaries": [],  # Contains all the summary points related to the privacy policy of this service.
         }
 
     def scrape_from_url(self, url):
-        response = requests.get(url)
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+                              ' Chrome/120.0.0.0 Safari/537.36'}
+            response = requests.get(url, headers=headers)
+        except:
+            return None
         response.encoding = 'utf-8'
 
         if response.status_code != 200:
@@ -75,13 +81,12 @@ class TOSDR_Summary_Scraper:
                         elif source == "privacy policy":
                             self.serviceInformation["Privacy_Summaries"].append(extracted_point)
 
-
         return self.serviceInformation
 
     # Given a single summary point, finds whether this summary point belongs to a service's terms and conditions,
     # or, their privacy policy. This method will also update the TOS / Privacy policy URl for this service.
     def find_source(self, element):
-        time.sleep(3)  # Try to keep requests at a reasonable pace.
+        time.sleep(1)  # Try to keep requests at a reasonable pace.
         source = None
         response = requests.get(element)
         response.encoding = 'utf-8'
@@ -118,7 +123,7 @@ class TOSDR_Summary_Scraper:
     def find_source_url(self, elements: ResultSet):  # Parameter "Element" MUST be a "ResultSet" type.
         href_regex = re.compile(r'<a\s+href="([^"]+)"')
         for element in elements:
-            if element.text == "link": # The relevant anchor element needed uniquely has the text "Link"
+            if element.text == "link":  # The relevant anchor element needed uniquely has the text "Link"
                 str_element = str(element)
                 element_href_match = href_regex.search(str_element)
                 if element_href_match:
@@ -136,7 +141,6 @@ class TOSDR_Summary_Scraper:
             return element_href
         else:
             return None
-
 
 # Below for testing purposes
 # scraper = TOSDR_Summary_Scraper()
