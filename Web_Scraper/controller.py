@@ -12,7 +12,7 @@ from duckpy import Client
  - Scrape the TOS / Privacy policy for each service.
  - Write all this data to disk.
  
- WARNING: This will take many hours to run to collect such a vast dataset.
+ WARNING: This will take many hours (12+ hours...) to run to collect such a vast dataset.
 '''
 
 
@@ -22,12 +22,20 @@ class Controller:
     def main(self):
         with open("URL_List.txt") as file:  # Open URL list scraped by "TOSDR list scraper"
             for line in file:
+
+                # Avoid collecting the same service more than once.
+                processed_URLs = set() # Store any processed URLs,
+                if line in processed_URLs:
+                    print(f'----------ERROR: URL ({line}) already processed!,-------------------')
+                    continue
+                processed_URLs.add(line)
+
                 # Make objects of the other two scrapers.
                 generic_site_scraper = GenericSiteTosScraper()
                 tosdr_summary_scraper = TOSDR_Summary_Scraper()
 
                 start_time = time.time()
-                time.sleep(5)  # sleeping the scraper to not flood any website with requests.
+                time.sleep(2)  # sleeping the scraper to not flood any website with requests.
 
                 URL = f'https://edit.tosdr.org{line}'  # Creating URL to document by reading scraped file.
                 scraped_summary = tosdr_summary_scraper.scrape_from_url(URL)
@@ -56,21 +64,21 @@ class Controller:
                         privacy_URL = self.search_for_document(website_name, type_of_document="Privacy Policy")
 
                     # If we have a reasonable length terms and conditions summary, and a URL to the actual terms
-                    if terms_summaries and len(terms_summaries) >= 4 and terms_URL:
+                    if terms_summaries and len(terms_summaries) > 5 and terms_URL:
                         joined_terms_summary = '. '.join(terms_summaries)  # Join summary into a paragraph.
 
                         # Scrapes the TOS of a given website, stored in this variable
                         service_terms = generic_site_scraper.scrape(terms_URL)
 
                         # If the service terms URL on the website is invalid, look for it as it probably moved.
-                        if service_terms is None or len(service_terms) <= 300:
+                        if service_terms is None or len(service_terms) <= 500:
                             terms_URL = self.search_for_document(website_name, type_of_document="Terms and Conditions")
                             service_terms = generic_site_scraper.scrape(terms_URL)
-                            print(f'Backup ran, result: {service_terms}')
+                            print(f'Backup ran, result: {service_terms is not None}')
 
                         # If successfully found both the full TOS and a summary, write it to disk.
                         # also check the scraped terms are a reasonable length to ensure it was properly scraped.
-                        if service_terms and len(service_terms) > 300 and joined_terms_summary:
+                        if service_terms and len(service_terms) > 500 and joined_terms_summary:
                             self.write_to_file(text=joined_terms_summary, website_name=website_name,
                                                document_type="Terms_Summary")
 
@@ -78,18 +86,19 @@ class Controller:
                                                document_type=f'Terms')
 
                     # If we have a reasonable length privacy policy summary, and a URL to the actual privacy policy
-                    if privacy_summaries and len(privacy_summaries) >= 4 and privacy_URL:
+                    if privacy_summaries and len(privacy_summaries) > 5 and privacy_URL:
                         joined_privacy_summary = '. '.join(privacy_summaries)
                         privacy_policy = generic_site_scraper.scrape(privacy_URL)
 
                         # If the service Privacy Policy URL on the website is invalid, look for it as it probably moved.
-                        if privacy_policy is None or len(privacy_policy) <= 300:
+                        if privacy_policy is None or len(privacy_policy) <= 500:
                             privacy_URL = self.search_for_document(website_name, type_of_document="Privacy Policy")
                             privacy_policy = generic_site_scraper.scrape(privacy_URL)
+                            print(f'Backup ran, result: {privacy_policy is not None}')
 
                         # If successfully received a summary and a privacy policy, write them to file
                         # also check the privacy policy is a reasonable length to ensure it was properly scraped.
-                        if privacy_policy and len(privacy_policy) > 300 and privacy_summaries:
+                        if privacy_policy and len(privacy_policy) > 500 and privacy_summaries:
                             self.write_to_file(text=joined_privacy_summary, website_name=website_name,
                                                document_type="Privacy_Policy_Summary")
                             self.write_to_file(text=privacy_policy, website_name=website_name,
@@ -122,7 +131,7 @@ class Controller:
             duckduckgo = Client()
             results = duckduckgo.search(query=f'{website_name} {type_of_document}')
             return results[0].url
-        except StopIteration:
+        except:
             return False
 
 
