@@ -1,47 +1,71 @@
 import re
 import requests
 from bs4 import BeautifulSoup
-import os
+import time
 
-# This class scrapes a list of URLS for which TOS;DR has summaries for.
+
+'''
+Scrapes a list of services for which TOSDR has summary points for.
+The resulting list is 1695 services long.
+Timeouts are used to not flood any website with requests
+As a result this takes about 15 minutes to execute
+'''
 
 class TOSDRListScraper:
-    TOSDR_URL = "https://edit.tosdr.org/documents"
+    page_number = 289  # Start page number at 289 - The first page with any useful summaries.
 
-    def fetchTOSList(self):
-        response = requests.get(self.TOSDR_URL)
-        response.encoding = 'utf-8'
+    def scrape(self):
+        while self.page_number <= 357:
+            TOSDR_URL = f'https://edit.tosdr.org/services?page={self.page_number}&q%5Bs%5D=rating+desc'
+            try:
+                headers = {
+                    'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                                  "Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
+                response = requests.get(TOSDR_URL, headers=headers)
+            except:
+                return None
+            response.encoding = 'utf-8'
 
-        if response.status_code != 200:
-            print("ERROR - CONNECTION NOT ESTABLISHED TO TOSDR: ", response.status_code)
-            return
+            # Handle invalid response from TOSDR.
+            if response.status_code != 200:
+                print(f'TODR LIST SCRAPER HAS RETURNED ERROR: {response.status_code} EXITING AT PAGE NUMBER: '
+                      f'{self.page_number}')
+                return None
 
-        soup = BeautifulSoup(response.text, 'html.parser')
-        table_items = soup.find_all(['tr'])  # extract all table rows on page
+            # Regex which picks out the URL to a service from the table.
+            service_number_regex = re.compile(r'/services/(\d+)"')
 
-        for row in table_items:  # loop over table found on page
-            found_href = None
-            found_text = None
-            for child in row.children:
-                child = str(child)
-                href_regex = re.compile(r'href="([^"]*)"')  # regex picks out the href property of each URL
-                text_regex = re.compile(r'(?<=">)(.+?)(?=<)')  # regex picks out the type of document (TOS)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            count = 0  # Count number of services scraped from this page
 
-                href = href_regex.search(child)
-                text = text_regex.search(child)
-                if href:
-                    found_href = href.group(1)
-                if text:
-                    found_text = text.group(1)
+            table_items = soup.find_all(['tr'])  # create a list of all table rows on webpage
 
-            if found_text and "terms" in found_text.lower():
-                print(found_text, found_href)
-                self.write_to_output(found_href)
+            for item in table_items:
+                # Searching for the element containing the URL to the service.
+                for child_item in item:
+                    formatted_child = re.sub(r'\s+', ' ', str(child_item))  # Removing unnecessary spacing from child
 
-    def write_to_output(self,href):
+                    # Ignore any services which do not have a rating, and thus, no summaries.
+                    if formatted_child == "<td> N/A </td>":  # Uniquely identifies unrated services
+                        break
+
+                    if "href=\"/services" in formatted_child:  # If child element has a URL to a service
+                        service_number = re.search(service_number_regex, formatted_child)  # extract it,
+                        if service_number:  # Then write it to file.
+                            self.write_to_file(service_number.group(0))
+                            print(f'found service URL: {service_number.group(0)}')
+                            count += 1
+                            break
+
+            print(f'Fetched {count} pages from {self.page_number} out of 357, '
+                  f'waiting 7 seconds and moving to next page.')
+            time.sleep(7)  # 7-Second delay, as to not flood any website with requests.
+            self.page_number += 1
+
+    def write_to_file(self, href):
         with open("URL_List.txt", "a", encoding="utf-8") as file:
             file.write(f"{href}\n")
 
 
 scraper = TOSDRListScraper()
-scraper.fetchTOSList()
+scraper.scrape()

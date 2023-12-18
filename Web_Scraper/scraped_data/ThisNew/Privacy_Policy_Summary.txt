@@ -1,0 +1,1 @@
+This service receives your percise location through GPS coordinates. You cannot delete your account of this service. This service may keep personal data after a request for erasure for business interests or legal obligations. The service collects many different types of personal data. This service gives your personal data to third parties involved in its operation
