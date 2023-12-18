@@ -86,7 +86,7 @@ class TOSDR_Summary_Scraper:
     # Given a single summary point, finds whether this summary point belongs to a service's terms and conditions,
     # or, their privacy policy. This method will also update the TOS / Privacy policy URl for this service.
     def find_source(self, element):
-        time.sleep(0.5)  # Try to keep requests at a reasonable pace.
+        time.sleep(1)  # Try to keep requests at a reasonable pace.
         source = None
         response = requests.get(element)
         response.encoding = 'utf-8'
