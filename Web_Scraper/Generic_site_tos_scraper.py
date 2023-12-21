@@ -38,7 +38,8 @@ class GenericSiteTosScraper:
         # find the potential tags which might contain the terms and conditions data.
         # These are tags which usually contain long text
         potential_terms_tags = soup.find_all(['p', 'div', 'span', 'article', 'section', 'b', 'ul', 'li', 'ol',
-                                              'strong', 'em', 'blockquote','br','h1','h2','h3','h4','h5','u'])
+                                              'strong', 'em', 'blockquote','br','h1','h2','h3','h4','h5','u',
+                                              'section'])
         unique_content = []  # Will be updated to hold any information not yet scraped on this site.
 
         for element in potential_terms_tags:  # consider only these elements
@@ -86,4 +87,4 @@ class GenericSiteTosScraper:
         return unique_content
 
 # scraper = GenericSiteTosScraper()
-# print(scraper.scrape("https://my.nordaccount.com/legal/terms-of-service/"))
+# print(scraper.scrape("https://vimeo.com/terms"))

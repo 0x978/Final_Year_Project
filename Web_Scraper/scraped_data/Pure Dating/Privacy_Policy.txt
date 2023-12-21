@@ -1,83 +1,63 @@
-We are responsible for all information relating to an identified or identifiable natural and, where applicable, legal person (“Personal Data”) that we collect, process, and use during your use of PURE. 
+PURE’S PRIVACY POLICY
+This privacy policy (“Privacy Policy”) applies to the use of the website https://pure.app/ in its entirety, including all of our subpages, associated sites or pages (“Website”), and the PURE mobile and web app, which is accessible through browser on mobile phone, tablet computer and personal computer (“App”) (collectively, “PURE”), are operated by Online Classifieds AG, Steinhauserstrasse 74, 6300 Zug, Switzerland, CHE-274.401.166 (“we”, “us”, “our”).
 
-This Privacy Policy outlines how we process your Personal Data both in connection with PURE and otherwise. The Website includes links to third-party websites, such as social networks. Clicking on those links or enabling those connections may allow the third party to collect or share data about you. We do not control these third-party websites, and we encourage you to read the privacy policy of those third-party websites.
+We are responsible for all information relating to an identified or identifiable natural and, where applicable, legal person (“Personal Data”) that we collect, process, and use during your use of PURE. We care deeply about protecting your privacy. We are committed to handling your Personal Data in accordance with applicable laws and to making PURE a service that people love and trust.
 
-California Residents Only. Our privacy notice for California residents supplements the information contained in this Privacy Policy and applies solely to all visitors, users, and others who reside in California. Our privacy notice for California residents can be downloaded and viewed by clicking here.
+This Privacy Policy outlines how we process your Personal Data both in connection with PURE and otherwise.
 
-1. Privacy-first approach
-We are committed to protecting your privacy and handling your Personal Data in accordance with applicable laws and regulations. To achieve this, we adhere to the principles of data minimization and purpose limitation. We will only collect and process personal information that is necessary for the specific purposes stated in this policy. Your data will not be used for any purpose other than those disclosed and we will only retain it for as long as required to fulfill these purposes or requests under applicable law.
-We also prioritize transparency and respect for your privacy choices. You have the right to access, correct, or delete your personal data held by us. Your privacy is important to us, and we are committed to maintaining the highest standards of data protection and user control in order  to make PURE a service that people love and trust.
-
-2. What Personal Data do we collect?
-Some of the personal data we collect is mandatory for the provision and functioning of PURE, while other personal data is considered optional, designed to enhance your user experience. Please be aware that without providing the mandatory personal data, we won't be able to grant you access to PURE.
-
+1. What Personal Data do we collect?
 a. When visiting the Website and/or App
 When you visit the Website or App, we can process the following categories of Personal Data from you:
 
-Technical Data: IP address, operating system, date and time of access, country from which PURE is accessed, browser type, referrer URL, log-in data, and device type;
-Tracking Data: See Article 5 below.
-b. When creating an account 
-When you create your PURE account, you voluntarily provide us with certain information. In this way, we can process the following categories of your Personal Data, which are either mandatory or optional for creating account and using PURE:
+Technical data: IP address, operating system, date and time of access, country from which PURE is accessed, browser type, referrer URL, log-in data, device type;
+Tracking data: see section 4 below.
+b. When using PURE
+When you use PURE, you voluntarily provide us with certain information. When you create an account, add information to your user profile, or interact with us you make the choice to share information personal to you with us. In this way, we can process the following categories of your Personal Data:
 
-Mandatory:
-
-Gender (man, woman or non-binary);
-Sexual orientation (heterosexual, bisexual, lesbian, gay, queer or asexual);
-Account data, including User ID.
-Optional:
-
-Email address (see Article 8 of the Agreement);
-Identity data, details about your add (personal description, age, height);
-Sexual and other preferences (turn-ons).
-c. When using PURE 
-When you use PURE, you voluntarily provide us with certain information. When you add information to your user profile, interact with us or other users, you make the choice to share your certain personal information with us. In this manner, we can process the following categories of your Personal Data, some of which are optional, while others are mandatory to enable you to use PURE to its fullest potential and enhance your overall experience:
-
- Optional:
-
-Location data, including geographical position, time identifier;
-PURE is designed to help you engage with other users located nearby to you. We use your location data (e.g., by using the GPS on your mobile device) to enable the intended functionality of PURE. This will be enabled only if you explicitly give us permission to access your location. You can disable this at any given time by changing the location permissions on your device or in the browser. Please keep in mind that when you use PURE, other users can view your location data and they may use it for purposes you did not intend, or disclose it to individuals or entities outside of our control and without our and your knowledge. The information you provide may be subject to abuse, misuse, and monitoring by others, and you share this information at your own risk.
-
+Identity data, including email, date of birth, gender, details about your bio, preferences;
+Account data, including User ID; 
 Transactional data, including information about the application process, contract content, contract management and execution;
 Financial data, including billing and payment information;
-Pictures, videos, audio and text messages sent when communicating with others (i.e. users content and material that have been submitted in the chat conversations, collectively “User Submissions”) are processed in order to secure and operate services and keep our user community safe. To safeguard user safety, we use automated systems to monitor and review pictures in chat conversations between users. This approach is in strict compliance with data protection regulations and is undertaken to meet the legal requirements imposed by specific countries concerning the transmission of explicit content. For this purpose pictures will be anonymized and stripped of personal information to protect your privacy, thereby ensuring data protection against unauthorized access or disclosure. For more details about this, please see our Terms and Conditions;
+Sexual identity data, including sexual orientation and sexual preferences;
+Pictures, videos, audio and text messages sent when communicating with other users that are processed in order to secure and operate services and keep our user community safe;
 Pictures and videos that you upload, publish or provide in any other way. In order to add this kind of content, you first have to give us permission to access your photo album/gallery and/or your camera;
-Usage data, including activity data, online interactions with us and with other users;
-Sexual identity data, including sexual orientation and other sexual preferences (turn-ons and types of connections you prefer);
 Your insights into our products and services, responses and testimonials your provide us when you participate in surveys, market studies or answering questions;
 Information that is used for participation in different contests, events and promotions we provide;
-If you contact our customer support team, we collect the information you give us during the interaction, and
-Photographic image of you and your form of identification that can confirm the date of your birth when appealing our decision to revoke your license, authorization to access and/or use PURE and terminate your account for failure to comply with our rules on minimum required age (see more here).
-We receive most of your Personal Data directly from you. To the extent permitted by applicable law, we can also obtain your Personal Data from publicly available sources or from public authorities and other third parties (e.g., service partners, internet analysis services). Personal data we share with third parties is regulated by Article 7 of this Agreement.
+Location data, including geographical position, time identifier;
+PURE is designed to help you engage with other users located nearby to you. We use your location data (e.g., by using the GPS on your mobile device) to enable the intended functionality of PURE. This will be enabled only if you explicitly give us permission to access your location. You can disable this at any given time by changing the location permissions on your device or in the browser. Please keep in mind that when you use PURE, other users can view your location data and they may use it for purposes you did not intend, or disclose it to individuals or entities outside of our control and without our and your knowledge. The information you provide may be subject to abuse, misuse, and monitoring by others, and you share this information at your own risk.
+Usage data, including activity data, online interactions with us and with other users;
+If you contact our customer support team, we collect the information you give us during the interaction.
+Photographic image of you and your form of identification that can confirm the date of your birth when appealing our decision to revoke your license, any authorization to access and/or use PURE and terminate your account for failure to comply with our rules on minimum required user age (see more here).
+We receive most of your Personal Data directly from you. To the extent permitted by applicable law, we can also obtain your Personal Data from publicly available sources or from public authorities and other third parties (e.g., service partners, internet analysis services).
 
-3. How do we use your Personal Data?
-We use your Personal Data to provide you products, offer you services, communicate with you, or to conduct other business operations, such as using data to improve and personalize your experience. Examples of how we may use the personal data we collect include:
+2. How do we use your Personal Data?
+We can use your Personal Data for the following purposes:
 
-Business relationships: We utilize transactional data, financial data, User Submissions and others for establishing, administrating, and processing contractual relationships, including the creation and management of a user account to enable you to fully utilize PURE.
-Ensuring the core functionality of the business and PURE: We use location data, including geographical position, time identifier, identity data, sexual identity data, including sexual orientation, sexual preferences and others to ensure the core functionality of the business and PURE, which encompasses maintenance, provision, improvement, monitoring, and geographically locating you relative to other users on PURE.
-Security and access control: Location data, including geographical position, time identifier, usage data, activity data, account data and others are used for monitoring, analyzing, and testing of networks and IT infrastructures, system and error checks, documentation, security copies, and communication of security updates;
-Market and opinion research: We use usage data, activity data, your insights, responses, testimonials, interactions and others for monitoring and analyzing your use of PURE, using statistical data for scientific and analysis purposes, further developing the offers we provide on PURE, administering focus groups, determining user demographics, and conducting market studies and surveys;
-For the purpose of Advertising and marketing, including promotional offers, events, and contests, we mainly utilize your insights and information used for participation in different contests, events, and promotions we provide;
+Business relationships: Establishing, administrating, and processing of contractual relationships, including the creation and management of a user account that allows you to make full use of PURE;
+Ensuring the core functionality of the business and PURE: Maintenance, provision, improvement, and monitoring of PURE;
+Security and access control: Monitoring, analyzing, and testing of networks and IT infrastructures, system and error checks, documentation, security copies, and communication of security updates;
+Market and opinion research: Monitoring and analyzing your use of PURE, using statistical data for scientific and analysis purposes, further developing the offers we provide on PURE, administering focus groups, determining user demographics, and conducting market studies and surveys;
+Advertising and marketing, including promotional offers, events, and contests;
 Compliance with laws and regulatory recommendations and directives: Know your customer (KYC) clarifications, fulfillment of disclosure, information and reporting obligations, fulfillment of archiving obligations, and the prevention, detection, and clarification of criminal acts;
-Safeguarding legal claims: Assertion, enforcement, and defense of legal claims, and
-Other: For any other purpose with your consent.
-4. What legal basis do we rely on when processing your Personal Data?
+Safeguarding legal claims: Assertion, enforcement, and defense of legal claims.
+3. What legal basis do we rely on when processing your Personal Data?
 We process your Personal Data based on the following legal bases:
 
 Performance of contractual obligations: It is necessary for us to process your Personal Data to provide PURE to users and thus carry out our obligations under the terms and conditions of PURE (e.g., create user account, receive payments);
 Legitimate interests: It is necessary to process your Personal Data to pursue our legitimate business interests, provided that your rights and freedoms do not override these legitimate interests, which include but are not limited to the protection of PURE and enhancing the functionality and efficiency of PURE;
-Compliance with applicable laws and regulations: It is necessary to process your Personal Data to comply with our legal obligations (e.g., accounting, tax, and other statutory data retention obligations); and
-Your consent: If you choose to provide us with Personal Data that may be considered sensitive in certain jurisdictions, such as your sexual identity data, you are giving us consent to process that Personal Data in accordance with this Privacy Policy. We will explicitly ask for your consent to collect specific Personal Data such as your precise geolocation, to transfer your Personal Data to countries without an adequate level of data protection (for more information please see Article 7 of the Agreement), or to use your Personal Data for certain specific reasons (e.g. direct marketing). You may withdraw your consent at any given time by contacting us as stated in this Privacy Policy. You can exercise this right at any time and doing so won't affect the legality of processing your data that occurred before the withdrawal, as long as you were informed before giving your consent.
-5. Online tracking and analysis
+Compliance with applicable laws and regulations: It is necessary to process your Personal Data to comply with our legal obligations (e.g., accounting, tax, and other statutory data retention obligations);
+Your consent: If you choose to provide us with Personal Data that may be considered sensitive in certain jurisdictions, such as your sexual identity data, you are giving us consent to process that Personal Data in accordance with this Privacy Policy. We may explicitly ask for your consent to collect specific Personal Data such as your precise geolocation, to transfer your Personal Data to countries without an adequate level of data protection, or to use your Personal Data for certain specific reasons (e.g., direct marketing). You may withdraw your consent at any given time by contacting us as stated in this Privacy Policy.
+4. Online tracking and analysis
 a. Cookies
 We use and may allow others to use cookies and similar technologies on PURE to recognize you and/or your device(s). You may read our cookie policy (see here) for more information on why we use them and how you can have better control over their use.
 
 b. Analytics
-We use analytics and research technologies on PURE to collect information about how visitors use PURE. For the analytics technologies that we use on our web platforms, you may read our Cookies policy (see here) for more information on why we use them and how you can better control their use.
+We use analytics and research technologies on PURE to collect information about how visitors use PURE. For the analytics technologies that we use on our web platforms, you may read our cookie policy (see here) for more information on why we use them and how you can better control their use.
 
 c. Log files
 When using PURE, general access data is stored in a log file for the creation of statistics. We use this data for statistical and technical evaluations in anonymized form, for example to optimize the server infrastructure, to determine on which days there are particularly many accesses, or to draw conclusions about possible improvements to the user interface and functionalities. A personal evaluation of this data does not take place.
 
-6. Social networks
+5. Social networks
 There are links on our Website to our profiles on the following social networks:
 
 Meta Platforms Inc., 1601 Willow Road, Menlo Park, CA 94025, USA please find more information about data protection here.
@@ -87,31 +67,17 @@ If you click on the social network icons, you will automatically be redirected t
 
 When you open a link to one of our profiles, a direct connection is established between your browser and the server of the relevant social network. This provides the network with the information that you have visited PURE with your IP address and accessed the link. If you access a link to a network while logged into your user account on the network in question, the content of PURE may be linked to your user account on the network, i.e., the network may link your visit originating from PURE directly to your user account on the social network. If you want to prevent this, you should log out from your account before clicking on the corresponding links. In any case, an association takes place when you log in to the relevant network after clicking on the link.
 
-7. Data Transfers to Third Countries
-We may transfer your Personal Data abroad to our business partners located in third countries, specializing in Analytics, Data Processing, Business Operations and Data Integration, Content Moderation, Marketing, and App Tracking.
+6. What Personal Data do we share with third parties?
+We may transfer your Personal Data abroad to third parties that may be located in any country in the world (in particular in other countries in Europe, Hong Kong, and the USA). These countries may have different laws about data processing and, as the case may be, data protection laws that have been deemed inadequate by competent authorities to protect your privacy rights.
 
-To safeguard your data privacy rights when transferring your personal data to third countries, including those where adequate data protection might not be guaranteed, we use tools such as Standard Contractual Clauses (SCCs) - approved by the European Commission and other relevant data protection authorities, Binding Corporate Rules (BCR) and other appropriate mechanism that ensure the personal data transfer complies with applicable laws and regulations. These mechanisms are designed to provide a legal framework for the protection of your personal data during international transfers and demonstrate our commitment to maintaining the highest standards of data protection.
+The data recipients are obliged to protect your Personal Data in accordance with the agreed contractual obligations and the applicable data protection laws. If the level of data protection in a country does not correspond to the Swiss or European level, we will contractually ensure that the protection of your Personal Data always corresponds to the level in Switzerland or the EU. For this purpose, we agree with the third parties on the EU standard clauses and, if necessary, implement additional technical and organizational measures.
 
-In addition, we ensure that the personal data transfer complies with applicable law, aiming to give your personal data the same level of protection as it has in the European Union and in Switzerland. We carefully assess whether the transfer is based on an adequacy decision, which, as a point of clarification, is an official determination by the European Commission regarding the adequacy of data protection in the third country. Such a determination can simplify data transfers to certain countries. Furthermore, we take into consideration specific safeguards outlined in GDPR Article 46, including Binding Corporate Rules (BCR) and Standard Contractual Clauses (SCCs).
-
-When required, we may rely on your explicit consent for data transfers, as stipulated by the provisions of the GDPR, Swiss privacy data regulations, and other applicable regulations. We conduct a comprehensive assessment to safeguard your personal data when transferred to third countries. This reflects our unwavering commitment to protect your data during international transfers and mitigate potential privacy risks. We take your privacy seriously and ensure that such transfers comply with the requirements of these data protection laws and regulations.
-
-8. With which third parties do we share Personal Data?
-In alignment with data protection regulations, we prioritize transparency when it comes to the transfer of your personal data to third parties. This section provides you with essential details regarding such transfers. We may transfer your personal data to carefully selected third parties situated within or outside Switzerland when we have a business reason to engage these organizations.
-
-Once again, we would like to emphasize that we consistently ensure compliance with legal requirements by using up-to-date necessary and recognised mechanisms, guaranteeing the confidentiality and integrity of your personal data's privacy and security throughout its processing and transmission to these third parties.
-
-As we operate on a global scale, the recipient of shared Personal Data and the location data of processing may vary depending on your geographical location and other events. Third parties are located and may process shared data in countries within the European Economic Area (EEA) and the European Union (EU) (including but not limited to Ireland, Belgium, Netherlands, Denmark, France, Germany, Cyprus, and Finland). Additionally, data may be shared to other countries in Europe (including but not limited to the United Kingdom and Russia), as well as to Asia (including but not limited to Israel, India, Vietnam, Japan, Singapore and Hong Kong). Furthermore, data processing and sharing extends to third parties in North and South America (including but not limited to the United States of America, Canada, Mexico, and Brazil) and Australia.
-
-9. What Personal Data do we share with third parties?
 In particular, we may disclose your Personal Data to the following categories of recipients:
 
 Service providers: We work with trusted service providers that process your Personal Data on our behalf or under joint responsibility (e.g., providers of telecommunications systems, email, database, hosting, outsourcing, payment, user verification, advertising, marketing, analytics, anti-spam, anti-fraud services). These service providers may also use your Personal Data for their own purposes. Service providers provide information about their independent data processing in their own privacy statements.
 Buyers or merger partners: In connection with an actual or potential restructuring of part or all of our business or our assets or any rights or interests therein, we may disclose your Personal Data to potential buyers or merger partners or sellers and their advisors.
 Government agencies: We may disclose your Personal Data to governmental agencies, courts, and other authorities, both domestic and foreign, if we are legally obligated or entitled to do so or if we deem it necessary to do so in order to protect our interests.
-This disclosure aligns with our commitment to transparency, in accordance with relevant data protection laws and regulations. Please refer to the Article 7 of Privacy Policy for detailed information on data sharing and protection practices.
-
-10. What Personal Data do we receive from third parties?
+7.  What Personal Data do we receive from third parties?
 By signing in PURE using your Facebook account you give permission to Facebook to share your email address, name and your profile picture with PURE. You have an option to manually opt-out of permission to allow Facebook sharing your email address with PURE, however this is only possible when an email is associated with your Facebook account.
 
 By signing in to PURE using your Apple ID you give permission to Apple to share your Apple login, your name and your email with PURE. Apple is offering an option to hide your email, so you can keep your email address private but still receive messages from the App. To enable this, Apple will create a random email address, link it to your account on PURE and allow your personal email to stay private.
@@ -126,20 +92,15 @@ Apple Inc., One Apple Park Way, Cupertino, CA 95014, USA; please find more infor
 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA; please find more information about data protection here.
 Meta Platforms Inc., 1601 Willow Road, Menlo Park, CA 94025, USA please find more information about data protection here.
 Huawei Device Co. Ltd., 9 Canton Road, Tsim Sha Tsui, Kwloon, Hong Kong; please find more information about data protection here.
-11. How long do we retain your Personal Data?
-We only retain your Personal Data for as long as it is needed for the purpose for which it was originally collected or as we are required to retain it under applicable laws and regulations or contractual agreements. If you would like to get more information related to this matter please contact us by email at dpo@pure.app or by mail at alternatively provided postal address below: 
+8. How long do we retain your Personal Data?
+We only retain your Personal Data for as long as it is needed for the purpose for which it was originally collected or as we are required to retain it under applicable laws and regulations or contractual agreements.
 
-Online Classifieds AG
-Baarerstrasse 8
-6300 Zug
-Switzerland
-
-12. How do we secure your Personal Data?
+9. How do we secure your Personal Data?
 We use appropriate technical and organizational security measures to protect Personal Data from loss, misuse, or alteration. Our employees and the service providers commissioned by us are contractually obliged to maintain confidentiality and to comply with the provisions of data protection law.
 
 However, it is not possible for us to guarantee the absolute security of Personal Data. In this context, please note that data transmitted over an open network such as the Internet or an email service is openly accessible. We cannot guarantee the confidentiality of messages or content shared over these networks. Thus, Personal Data sent to us via open networks will not be subject to the same security measures as Personal Data contained within PURE.
 
-13. Your rights
+10. Your rights
 You have the following rights:
 
 Access: You have the right to access your Personal Data. This gives you the opportunity to check what Personal Data we process about you and that we process it in accordance with the applicable data protection regulations.
@@ -151,19 +112,25 @@ Lodge a complaint with a supervisory authority: You have the right to lodge a co
 Withdrawal: You have the right to withdraw your consent to the processing of your Personal Data at any time, free of charge, and without giving any reason by contacting us at the address provided in this Privacy Policy. Processing activities conducted with your consent in the past, prior to you revoking consent, do not become unlawful as a result of your revocation. 
 Please note that the above-mentioned rights are not absolute. These rights are subject to exceptions and their applicability is largely dependent on the legal basis we rely on in each case and the various circumstances of each specific request.
 
-If you would like to exercise any of your rights above please contact us by email at dpo@pure.app or by mail at alternatively provided postal address below: 
-
-Online Classifieds AG
-Baarerstrasse 8
-6300 Zug
-Switzerland
-
-If you are a California resident, California law may provide you with additional rights regarding the Company’s use of your personal information. California Civil Code Section 1798.83 permits you to request information regarding the disclosure of your personal data by us to third parties for the third parties’ direct marketing purposes. Further, if you are a California resident and would like to opt out from the disclosure of your personal data to any third party for their direct marketing purposes, please send an email to the email contact listed below. However, please know we do not currently disclose your personal data to any third party for their direct marketing purposes. If you opt out from permitting your personal data to be shared, you may still receive selected offers directly from us in accordance with California law.
-
-14. Children's policy
+11. Children's policy
 Users who are not at least 18 years old or older when explicitly required by applicable state laws (referred to as “minor/s” hereafter) are not permitted to use PURE. We do not knowingly collect Personal Data from minors.
 
 We encourage parents and legal guardians to monitor their children's Internet usage and to help enforce our Privacy Policy by instructing their children not to use PURE and thus not to provide Personal Data on PURE. If you have reason to believe that a minor has provided Personal Data to us, please contact us immediately and we will endeavor to delete that data from our databases.
 
-15. Changes to this Privacy Policy
+12. Changes to this Privacy Policy
 We may change this Privacy Policy to address changes in the legislation or on PURE. Changes to this Privacy Policy will take effect automatically after they are first posted on the Website or App.
+
+13. Contact
+If you would like to exercise any of your rights or if you have feedback, comments, or questions about data protection or this Privacy Policy please contact us by email at privacy@pure.app or by mail at alternatively provided postal address.
+
+We also have a selected Data Protection Officer that can be contacted by email at dpo@pure.app. 
+
+Alternatively, you can write to:
+
+Online Classifieds AG
+Steinhauserstrasse 74
+6300 Zug
+Switzerland
+
+Effective date: 15 April 2023
+
