@@ -37,7 +37,9 @@ class GenericSiteTosScraper:
 
         # find the potential tags which might contain the terms and conditions data.
         # These are tags which usually contain long text
-        potential_terms_tags = soup.find_all(['p', 'div', 'span', 'article', 'section', 'b'])
+        potential_terms_tags = soup.find_all(['p', 'div', 'span', 'article', 'section', 'b', 'ul', 'li', 'ol',
+                                              'strong', 'em', 'blockquote','br','h1','h2','h3','h4','h5','u',
+                                              'section'])
         unique_content = []  # Will be updated to hold any information not yet scraped on this site.
 
         for element in potential_terms_tags:  # consider only these elements
@@ -55,20 +57,22 @@ class GenericSiteTosScraper:
                 if "footer" in data_test_id:
                     break
 
-            # Check if element has a href element. If it does, conclude it's not relevant to the terms / privacy policy
-            pattern = r'href="([^"]*)"'
-            match = re.search(pattern, str_element)
-            if match:  # go to next element
-                continue
-
             # Extract the CSS class of the element
             pattern = r'class\s*=\s*["\'](.*?)["\']'
             match = re.search(pattern, str_element)
+
+
+
             if match:
                 class_value = match.group(1)
+
+                # If find a footer, we can conclude no more useful information exists beyond this, and exit early.
+                if "footer" in class_value.lower():
+                    break
+
                 # Try to extract only the most relevant information from page by filtering out CSS elements usually
                 # associated with elements not related to the TOS or privacy policy text.
-                exclude_keywords = ["head", "footer", "nav", "menu", "overlay", "bottom", "map", "button", "list"]
+                exclude_keywords = ["head", "footer", "nav", "menu", "overlay", "bottom", "map", "button"]
 
                 # Go to next element if this element has a classname matching the filter list
                 if any(keyword in class_value.lower() for keyword in exclude_keywords):
@@ -83,4 +87,4 @@ class GenericSiteTosScraper:
         return unique_content
 
 # scraper = GenericSiteTosScraper()
-# print(scraper.scrape("https://gettr.com/terms"))
+# print(scraper.scrape("https://vimeo.com/terms"))

@@ -1,1 +1,0 @@
-The service provides information about how they intend to use your personal data. This service ignores the Do Not Track (DNT) header and tracks users anyway even if they set this header.. You are not being tracked. Features of the website are made available under a free software license. The service is open-source.  Pseudonyms are allowed
