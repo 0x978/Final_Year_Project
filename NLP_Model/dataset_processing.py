@@ -4,22 +4,16 @@ import json
 
 # Given the path to a web scraped dataset, turns the dataset into a JSON file, where each row in the JSON file contains
 # A privacy policy and its associated summary.
-def process_json(folder_path,document):
-    results_list = []
+def process_json(folder_path, document):
+    with open(f"{document}_dataset.jsonl", 'w') as jsonl_data:
+        for folder in os.listdir(folder_path):
+            nested_folder_path = os.path.join(folder_path, folder)
+            processed_document = process_document(nested_folder_path, document)
 
-    for folder in os.listdir(folder_path):
-        nested_folder_path = os.path.join(folder_path, folder)
-
-        processed_document = process_document(nested_folder_path,document)
-
-        if "document" in processed_document and "summary" in processed_document:
-            # append the returned privacy policy and summary to the list of results.
-            results_list.append(
-                {"summary": processed_document["summary"], "document": processed_document["document"]})
-
-    # Write the results list to JSON file.
-    with open(f"{document}_dataset.json", 'w') as json_file:
-        json.dump(results_list, json_file, indent=2)  # writes to json file "dataset.json"
+            if "document" in processed_document and "summary" in processed_document:
+                # Writing in JSONL format for better compatibility with Kaggle.
+                # This is almost identical to JSON but uses new lines as a delimiter; kaggle disagrees my JSON format.
+                jsonl_data.write(json.dumps({"summary": processed_document["summary"], "document": processed_document["document"]}) + '\n')
 
 
 # Returns an object with the document, and it's associated summary in an object
