@@ -13,14 +13,15 @@ def process_json(folder_path, document):
             if "document" in processed_document and "summary" in processed_document:
                 # Writing in JSONL format for better compatibility with Kaggle.
                 # This is almost identical to JSON but uses new lines as a delimiter; kaggle disagrees my JSON format.
-                jsonl_data.write(json.dumps({"summary": processed_document["summary"], "document": processed_document["document"]}) + '\n')
+                jsonl_data.write(json.dumps(
+                    {"summary": processed_document["summary"], "document": processed_document["document"]}) + '\n')
 
 
 # Returns an object with the document, and it's associated summary in an object
-def process_document(path,document):
+def process_document(path, document):
     data = {}
 
-    # Create paths to privacy policy and privacy policy summary in current directory.
+    # Create paths to document and document summary in current directory.
     document_path = os.path.join(path, f'{document}.txt')
     summary_document_path = os.path.join(path, f'{document}_Summary.txt')
 
@@ -51,5 +52,15 @@ def count(folder_path):
     print(f'{terms_count} terms and {privacy_count} privacy policies')
 
 
+# Joins multiple JSON into one
+def json_merger(merged_file, *jsons): # Asterisk in param means we can pass in any number of input json.
+    with open(merged_file, 'w') as out_file:
+        for curr_json in jsons:
+            with open(curr_json, 'r') as in_json:
+                for line in in_json:
+                    out_file.write(line)
+
+
 SCRAPED_DATA_PATH = "../Web_Scraper/scraped_data"
-process_json(SCRAPED_DATA_PATH,"Terms")
+#process_json(SCRAPED_DATA_PATH, "Privacy_Policy")
+json_merger("Merged_Dataset.jsonl","Privacy_Policy_dataset.jsonl","Terms_dataset.jsonl")
