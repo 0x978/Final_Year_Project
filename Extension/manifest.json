@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "TOS / Privacy Policy Summariser",
+  "description": "Summarises terms and conditions and privacy policies.",
+  "version": "1.0",
+  "action": {
+    "default_popup": "hello.html"
+  },
+  "icons": {
+    "16": "images/temp_icon (16x16).png",
+    "32": "images/temp_icon (32x32).png",
+    "48": "images/temp_icon (48x48).png",
+    "128": "images/temp_icon (128x128).png"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "scripts/content.ts"
+      ],
+      "matches": [
+        "https://*/*"
+      ]
+    }
+  ]
+}
