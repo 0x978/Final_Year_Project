@@ -4,7 +4,10 @@
   "description": "Summarises terms and conditions and privacy policies.",
   "version": "1.0",
   "action": {
-    "default_popup": "hello.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "32": "images/temp_icon (32x32).png"
+    }
   },
   "icons": {
     "16": "images/temp_icon (16x16).png",
@@ -12,11 +15,20 @@
     "48": "images/temp_icon (48x48).png",
     "128": "images/temp_icon (128x128).png"
   },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
   "content_scripts": [
     {
       "js": [
-        "scripts/content.ts"
+        "scripts/content.js"
       ],
+      "type": "module",
       "matches": [
         "https://*/*"
       ]
