@@ -4,9 +4,11 @@
 # Also note the models must be available in the same directory as the server, which are ~1.7 GB each.
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from transformers import pipeline, LEDTokenizer, LEDForConditionalGeneration
 
 app = Flask("Server")  # Creates flask instance called server
+CORS(app)  # Enable CORS on server
 
 # Initialize the model
 trained_tokeniser = LEDTokenizer.from_pretrained("Privacy_Policy_Model_4_epoch")
@@ -25,7 +27,13 @@ def summarise_input():
     # Surround summarisation in try/except to prevent server crash on failure in hugging-face Transformers pipeline
     try:
         summarised_text = summariser(document)
-        return jsonify({'summarized_text': summarised_text})
+
+        # Add CORS headers to the response to prevent CORS errors.
+        response = jsonify({'summarized_text': summarised_text})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+
+        return response
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
