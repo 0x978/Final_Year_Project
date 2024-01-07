@@ -7,38 +7,25 @@ interface buttonState {
     isActive: boolean,
 }
 
+const DEFAULT_PRIVACY_BUTTON_TEXT = "Summarise Privacy Policy"
 const DEFAULT_TOS_BUTTON_TEXT = "Summarize T&C"
 
 document.addEventListener('DOMContentLoaded', function () {
     let privacyPolicyButton = document.getElementById('privacyPolicyButton');
+    let termsConditionsButton = document.getElementById("termsConditionsButton")
+    document.getElementById("reset")?.addEventListener('click',() => resetButtonState())
 
-    // Null check and assertion
-    // Typescript isn't automatically inferring the possibility for HTMLElements to not be null
-    // so this workaround will do
-    if(privacyPolicyButton === null){
+    // Null check
+    if(privacyPolicyButton === null  || termsConditionsButton === null ){
         return
     }
-    privacyPolicyButton = privacyPolicyButton as HTMLElement
+
 
     // Button initialisation
-    // Initialises button state when the popup is opened from memory.
-    void buttonInitialiser(privacyPolicyButton)
-
-     // Add listener to button
-    privacyPolicyButton.addEventListener('click', async function () {
-        let tab = await getCurrentUserTab() // TODO: Why is tab sometimes undefined?
-
-        setButtonState(privacyPolicyButton as HTMLElement, {buttonText: "loading...", isActive: false})
-
-        const res = tab?.id && await chrome.tabs.sendMessage(tab.id, {"message": "summarise_terms"});
-
-
-        console.log("response:", res) // print to console for now
-
-        setButtonState(privacyPolicyButton as HTMLElement,{buttonText: DEFAULT_TOS_BUTTON_TEXT, isActive: true})
-    });
-
-
+    // Initialises button state and adds event handler.
+    // need to cast to HTMLButtonElement as TypeScript isn't inferring this automatically
+    void buttonInitialiser(privacyPolicyButton as HTMLButtonElement)
+    void buttonInitialiser(termsConditionsButton as HTMLButtonElement)
 
 });
 
@@ -49,14 +36,15 @@ async function getCurrentUserTab() {
 }
 
 // Set the text of a given button element in the popup.html UI.
-function setButtonState(button: HTMLElement, state: buttonState) {
+function setButtonState(button: HTMLButtonElement, state: buttonState) {
     const stringButtonState = `${button.id}_state`
     void chrome.storage.sync.set({ [stringButtonState]: state });
     button.innerText = state.buttonText
+    button.disabled = !state.isActive
 }
 
 // fetches the current button state from memory.
-async function getButtonState(button: HTMLElement): Promise<undefined | buttonState> {
+async function getButtonState(button: HTMLButtonElement): Promise<undefined | buttonState> {
     const stringButtonState = `${button.id}_state`
     let buttonState = undefined
     await chrome.storage.sync.get(`${stringButtonState}`).then((res) => {
@@ -65,10 +53,45 @@ async function getButtonState(button: HTMLElement): Promise<undefined | buttonSt
     return buttonState
 }
 
-// Asynchronously fetches and sets button state from memory when popup is opened.
-async function buttonInitialiser(button: HTMLElement) {
+// Asynchronously fetches and sets button state from memory and initialises event listeners.
+async function buttonInitialiser(button: HTMLButtonElement) {
+    const buttonID = button.id
+
+    // Set button state (text, is button clickable?)
     const buttonState = await getButtonState(button)
     if (buttonState) {
         setButtonState(button, buttonState)
     }
+
+    // add event listener to button.
+    // Responsible for running the summariser when the button is pressed.
+    button.addEventListener('click', async function () {
+        let tab = await getCurrentUserTab()
+
+        // Set button state to inactive, and text to "Loading"...
+        setButtonState(button, {buttonText: "loading...", isActive: false})
+
+        const res = tab?.id && await chrome.tabs.sendMessage(tab.id, {"message": "summarise_terms"});
+
+        console.log("response:", res.res) // print to console for now
+
+        const defaultText = buttonID === "privacyPolicyButton"
+            ? DEFAULT_PRIVACY_BUTTON_TEXT
+            : DEFAULT_TOS_BUTTON_TEXT
+
+        // reset button state active, and text to default.
+        setButtonState(button ,{buttonText: defaultText, isActive: true})
+    });
+}
+
+// Hopefully not needed in release
+// resets button states.
+function resetButtonState(){
+    chrome.storage.sync.clear().then(_ =>{
+        let privacyPolicyButton = document.getElementById('privacyPolicyButton');
+        let termsConditionsButton = document.getElementById("termsConditionsButton")
+        console.log("Memory cleared")
+        setButtonState(privacyPolicyButton as HTMLButtonElement ,{buttonText:DEFAULT_PRIVACY_BUTTON_TEXT, isActive: true})
+        setButtonState(termsConditionsButton as HTMLButtonElement ,{buttonText:DEFAULT_TOS_BUTTON_TEXT, isActive: true})
+    })
 }
