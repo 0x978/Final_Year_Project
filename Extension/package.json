@@ -24,15 +24,20 @@
   },
   "contributors": [],
   "scripts": {
-    "clean": "rimraf dist/",
-    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.png dist/src",
-    "build": "npm run clean && tsc && npm run copy-files"
+    "build": "webpack --mode production"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.256",
     "copyfiles": "^2.4.1",
     "del-cli": "^5.1.0",
     "rimraf": "^5.0.5",
-    "typescript": "^5.3.3"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "copy-webpack-plugin": "^11.0.0",
+    "mini-css-extract-plugin": "^2.7.6"
   }
 }
