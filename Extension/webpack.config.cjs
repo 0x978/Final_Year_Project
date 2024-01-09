@@ -1,3 +1,7 @@
+// as per https://stackoverflow.com/questions/66406672/how-do-i-import-scripts-into-a-service-worker-using-chrome-extension-manifest-ve/66408379#66408379
+// to use libraries in a Chrome extension, webpack is needed to compile and minimise the extension.
+// This file defines the webpack configuration
+
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
