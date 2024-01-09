@@ -6,9 +6,8 @@
 
 chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if (request.message === "summarise_terms") {
-        //scrape_page()
         console.log("received summary request")
-        let pageContent = document.body.innerText;
+        let pageContent = scrape_page();
 
         (async () => {
             const res = await receiveSummary(pageContent);
@@ -34,39 +33,59 @@ async function receiveSummary(document:String){
 }
 
 function scrape_page(){
-    // Similar to the Generic web scraper, select only elements containing TOS / Privacy Policy text
-    const pageContent = Array.from(new Set(document.querySelectorAll(
-        'p, div > *, span, article, section, b, u, li, ol, strong, em, blockquote, br, h1, h2, h3, h4, h5, section')
-    )) as HTMLElement[]
+
+    // Select all elements on the page of the given HTML element types.
+    const pageContent = Array.from(document.querySelectorAll<HTMLElement>(
+        'p, div, span, article, section, b, u, li, ol, strong, em, blockquote, br, h1, h2, h3, h4, h5, section'
+    ));
 
 
     // Filter out any elements with the below items in their CSS class name.
     // These class names are often found in elements not needed for summarisation
-    const excludeKeywords = ["head", "footer", "nav", "menu", "overlay", "bottom", "map", "button","btn","menu",
-        "navigation"]
+    const exclusionClassNameList = ["head", "footer", "nav", "menu", "overlay", "bottom", "map", "button","btn",
+        "menu", "navigation","popup","notice"]
 
+    // avoid duplicate content by utilising a set (TODO is this redundant?)
     let uniqueContentSet:Set<String> = new Set()
 
     // Check each element class name against each exclusion keyword.
-    // Add to set only if not in exclusion list.
+    // Add to set only if element class name doesn't contain any words in exclusion list
+    outer:
     for (let i = 0; i < pageContent.length; i++) {
         const elementClassName = pageContent[i]?.className.toLowerCase()
 
-        for (let j = 0; j < excludeKeywords.length; j++) {
-            const word = excludeKeywords[j];
+        for (let j = 0; j < exclusionClassNameList.length; j++) {
+            const word = exclusionClassNameList[j];
 
             if (word && elementClassName?.includes(word)) {
-                break;
+                continue outer; // skip to next item in list.
             }
         }
 
-        const elementText = pageContent[i]?.innerText?.trim().replace(/\s+/g, ' ')
-        elementText && uniqueContentSet.add(elementText);
+        const element = pageContent[i]
+        const elementText = element && retrieveTextFromElement(element)
+        elementText && uniqueContentSet.add(elementText.trim())
     }
 
-
-    // Extract text from selected elements.
     const uniqueContentArray = Array.from(uniqueContentSet)
 
-    console.log(uniqueContentArray.join())
+    return uniqueContentArray.join(" ") // join each item with space separator
+}
+
+// There is no property on an Element or HTMLElement to retrieve its text (why!?)
+// both "textContent" and "innerText" retrieves the text from an element AND its children.
+// thus this function will retrieve the text of an HTML element, or return undefined if the element has no text.
+function retrieveTextFromElement(element:HTMLElement):string|undefined{
+
+    const children = Array.from(element.childNodes) // get all children of element
+
+    // Find and return the text of the first element child which is a "text node" - an element which contains some text.
+    for(let i = 0; i < children.length; i++){
+        const child = children[i]
+        if(child?.nodeType === 3){ // A "text node" is "nodeType" 3.
+            // Remove any excessive spacing using regex before returning.
+            return child.textContent?.trim().replace(/\s+/g, ' ')
+        }
+    }
+    return undefined
 }
