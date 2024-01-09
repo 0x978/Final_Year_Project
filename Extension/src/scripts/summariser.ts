@@ -6,6 +6,7 @@
 
 chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if (request.message === "summarise_terms") {
+        //scrape_page()
         console.log("received summary request")
         let pageContent = document.body.innerText;
 
@@ -30,4 +31,42 @@ async function receiveSummary(document:String){
     })
     console.log("Received response")
     return await res.json()
+}
+
+function scrape_page(){
+    // Similar to the Generic web scraper, select only elements containing TOS / Privacy Policy text
+    const pageContent = Array.from(new Set(document.querySelectorAll(
+        'p, div > *, span, article, section, b, u, li, ol, strong, em, blockquote, br, h1, h2, h3, h4, h5, section')
+    )) as HTMLElement[]
+
+
+    // Filter out any elements with the below items in their CSS class name.
+    // These class names are often found in elements not needed for summarisation
+    const excludeKeywords = ["head", "footer", "nav", "menu", "overlay", "bottom", "map", "button","btn","menu",
+        "navigation"]
+
+    let uniqueContentSet:Set<String> = new Set()
+
+    // Check each element class name against each exclusion keyword.
+    // Add to set only if not in exclusion list.
+    for (let i = 0; i < pageContent.length; i++) {
+        const elementClassName = pageContent[i]?.className.toLowerCase()
+
+        for (let j = 0; j < excludeKeywords.length; j++) {
+            const word = excludeKeywords[j];
+
+            if (word && elementClassName?.includes(word)) {
+                break;
+            }
+        }
+
+        const elementText = pageContent[i]?.innerText?.trim().replace(/\s+/g, ' ')
+        elementText && uniqueContentSet.add(elementText);
+    }
+
+
+    // Extract text from selected elements.
+    const uniqueContentArray = Array.from(uniqueContentSet)
+
+    console.log(uniqueContentArray.join())
 }

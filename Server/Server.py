@@ -16,7 +16,7 @@ trained_model = LEDForConditionalGeneration.from_pretrained("Privacy_Policy_Mode
 summarizer = pipeline("summarization", model=trained_model, tokenizer=trained_tokeniser)
 
 
-# Route which listens on "/summarise" for incoming text and passes it to async function "summarise_async"
+# Route which listens on "/summarise" for incoming text and passes it to function "summarise"
 @app.route("/summarise", methods=['POST'])
 def summarise_input():
     document = request.data.decode("utf-8")  # Data is passed as utf-8 formatted text (for now)
