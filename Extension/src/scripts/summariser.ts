@@ -12,6 +12,7 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
         (async () => {
             const res = await receiveSummary(pageContent);
+            resetMemory(request.requestType)
             sendResponse({"res": res})
             changeIcon("done")
         })();
@@ -92,9 +93,25 @@ function retrieveTextFromElement(element:HTMLElement):string|undefined{
     return undefined
 }
 
-// calls upon the service worker
+// calls upon the service worker to change the extension icon text.
 // Accepts only the strings "on", "off" or "done" - signifying the three states the service worker can handle.
 // Shows the power of Typescript types - able to define exactly what strings can be accepted.
 function changeIcon(message:"on"|"off"|"done"){
     void chrome.runtime.sendMessage({"message": `${message}_badge`});
+}
+
+// If the user closes the popup while the page is being summarised, the button cannot be updated when done.
+// This will reset the button to default values via memory, even if the popup is closed.
+// This works as "buttonInitialiser" will read from memory to initialise button from memory when popup is opened
+function resetMemory(requestType:string){
+    const base_text = requestType === "Privacy Policy"
+        ? "Summarise Privacy Policy"
+        : "Summarise T&C"
+
+    const button_id = requestType === "Privacy Policy"
+        ? "privacyPolicyButton_state"
+        : "termsConditionsButton_state"
+
+
+    void chrome.storage.sync.set({ [button_id]: {buttonText: base_text, isActive:true}  });
 }

@@ -8,15 +8,15 @@ interface buttonState {
 }
 
 const DEFAULT_PRIVACY_BUTTON_TEXT = "Summarise Privacy Policy"
-const DEFAULT_TOS_BUTTON_TEXT = "Summarize T&C"
+const DEFAULT_TOS_BUTTON_TEXT = "Summarise T&C"
 
 document.addEventListener('DOMContentLoaded', function () {
     let privacyPolicyButton = document.getElementById('privacyPolicyButton');
     let termsConditionsButton = document.getElementById("termsConditionsButton")
-    document.getElementById("reset")?.addEventListener('click',() => resetButtonState())
+    document.getElementById("reset")?.addEventListener('click', () => resetButtonState())
 
     // Null check
-    if(privacyPolicyButton === null  || termsConditionsButton === null ){
+    if (privacyPolicyButton === null || termsConditionsButton === null) {
         return
     }
 
@@ -26,6 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // need to cast to HTMLButtonElement as TypeScript isn't inferring this automatically
     void buttonInitialiser(privacyPolicyButton as HTMLButtonElement)
     void buttonInitialiser(termsConditionsButton as HTMLButtonElement)
+
+    // If the extension badge is currently set as "done", set it to "OFF" when the user opens the extension popup.
+    chrome.action.getBadgeText({}, (badgeText) => {
+        if(badgeText === "DONE"){
+            void chrome.runtime.sendMessage({"message": `off_badge`});
+        }
+    })
 
 });
 
@@ -66,16 +73,21 @@ async function buttonInitialiser(button: HTMLButtonElement) {
     // add event listener to button.
     // Responsible for running the summariser when the button is pressed.
     button.addEventListener('click', async function () {
+        const requestType = buttonID === "privacyPolicyButton"
+            ? "Privacy Policy"
+            : "Terms and Conditions"
+
         let tab = await getCurrentUserTab()
 
         // Set button state to inactive, and text to "Loading"...
         setButtonState(button, {buttonText: "loading...", isActive: false})
 
-        const res = tab?.id && await chrome.tabs.sendMessage(tab.id, {"message": "summarise_terms"});
+        const res = tab?.id && await chrome.tabs.sendMessage(tab.id, {"message": "summarise_terms",
+            "requestType":requestType});
 
         console.log("response:", res.res) // print to console for now
 
-        const defaultText = buttonID === "privacyPolicyButton"
+        const defaultText = requestType === "Privacy Policy"
             ? DEFAULT_PRIVACY_BUTTON_TEXT
             : DEFAULT_TOS_BUTTON_TEXT
 
