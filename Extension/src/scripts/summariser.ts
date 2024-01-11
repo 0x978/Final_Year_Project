@@ -7,11 +7,13 @@
 chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if (request.message === "summarise_terms") {
         console.log("received summary request")
+        changeIcon("on")
         let pageContent = scrape_page();
 
         (async () => {
             const res = await receiveSummary(pageContent);
             sendResponse({"res": res})
+            changeIcon("done")
         })();
         return true
 
@@ -88,4 +90,11 @@ function retrieveTextFromElement(element:HTMLElement):string|undefined{
         }
     }
     return undefined
+}
+
+// calls upon the service worker
+// Accepts only the strings "on", "off" or "done" - signifying the three states the service worker can handle.
+// Shows the power of Typescript types - able to define exactly what strings can be accepted.
+function changeIcon(message:"on"|"off"|"done"){
+    void chrome.runtime.sendMessage({"message": `${message}_badge`});
 }

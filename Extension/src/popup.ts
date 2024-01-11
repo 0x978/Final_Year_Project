@@ -93,5 +93,6 @@ function resetButtonState(){
         console.log("Memory cleared")
         setButtonState(privacyPolicyButton as HTMLButtonElement ,{buttonText:DEFAULT_PRIVACY_BUTTON_TEXT, isActive: true})
         setButtonState(termsConditionsButton as HTMLButtonElement ,{buttonText:DEFAULT_TOS_BUTTON_TEXT, isActive: true})
+        void chrome.runtime.sendMessage({"message": `off_badge`});
     })
 }
