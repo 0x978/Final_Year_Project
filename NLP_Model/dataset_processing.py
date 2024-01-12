@@ -1,7 +1,6 @@
 import os
 import json
 
-
 # Given the path to a web scraped dataset, turns the dataset into a JSON file, where each row in the JSON file contains
 # A privacy policy and its associated summary.
 def process_json(folder_path, document):
@@ -37,21 +36,6 @@ def process_document(path, document):
 
     return data
 
-
-# Returns number of Terms & Conditions and number of privacy policies in dataset
-def count(folder_path):
-    terms_count = 0
-    privacy_count = 0
-    for root, dirs, files in os.walk(folder_path):
-        for file in files:
-            if "Terms.txt" == str(file):
-                terms_count += 1
-            if "Privacy_Policy.txt" == str(file):
-                privacy_count += 1
-
-    print(f'{terms_count} terms and {privacy_count} privacy policies')
-
-
 # Joins multiple JSON into one
 def json_merger(merged_file, *jsons): # Asterisk in param means we can pass in any number of input json.
     with open(merged_file, 'w') as out_file:
@@ -62,5 +46,5 @@ def json_merger(merged_file, *jsons): # Asterisk in param means we can pass in a
 
 
 SCRAPED_DATA_PATH = "../Web_Scraper/scraped_data"
-#process_json(SCRAPED_DATA_PATH, "Privacy_Policy")
-json_merger("Merged_Dataset.jsonl","Privacy_Policy_dataset.jsonl","Terms_dataset.jsonl")
+#process_json(SCRAPED_DATA_PATH, "Terms")
+#json_merger("Merged_Dataset.jsonl","Privacy_Policy_dataset.jsonl","Terms_dataset.jsonl")
