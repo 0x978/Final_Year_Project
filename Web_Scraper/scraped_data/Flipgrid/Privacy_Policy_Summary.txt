@@ -1,0 +1,1 @@
+There is a date of the last update of the agreements. Do Not Track (DNT) headers are ignored and you are tracked anyway even if you set this header.. First-party cookies are used. The service claims to be CCPA compliant for California users. This service is a subsidiary of Microsoft

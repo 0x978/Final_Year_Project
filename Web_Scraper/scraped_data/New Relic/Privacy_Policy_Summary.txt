@@ -1,0 +1,1 @@
+There is a date of the last update of the agreements. You can opt out of promotional communications. You are tracked via web beacons, tracking pixels, browser fingerprinting, and/or device fingerprinting. Your data may be processed and stored anywhere in the world. Do Not Track (DNT) headers are ignored and you are tracked anyway even if you set this header.

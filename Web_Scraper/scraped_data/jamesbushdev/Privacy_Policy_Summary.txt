@@ -1,0 +1,1 @@
+Only necessary user logs are kept by the service to ensure quality. A complaint mechanism is provided for the handling of personal data. This service collects your IP address, which can be used to view your approximate location. This service does not track you. Your personal data is used for limited purposes. The service does not use third-party analytics or tracking platforms
