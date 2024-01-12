@@ -1,1 +1,53 @@
-feedly Oops! Feedly failed to load :-( Please try to reload https://feedly.com/ in case this is due to a networking or caching issue. In some cases, some browser extensions can interfere with the loading of Feedly. If you have some browser extensions installed, try to load Feedly in an incognito window and see if that resolves the issue. If it does, you can try to disable extensions one by one to determine where the conflict is. Finally, this could be caused by a bug in Feedly. If this is the case, please send an email to care@feedly.com and we will be happy to help.
+Last updated & Effective Date: January 2022
+
+This Privacy Policy explains how Feedly receives and processes personal information as defined by applicable law from its business customers (“Customer Personal Information” or “Customer PI”) and visitors (as prospective business customers) to its website or “Site” (“Visitor Personal Information” or “Visitor PI”). Customer PI and Visitor PI may be referred to herein as Personal Information or “PI.” As used herein “Service Provider” also means “Data Processor” as defined under applicable law.
+
+What Information & Why: Feedly receives Customer Personal Information for the business purposes of providing software as a service (collectively referred to herein as “Services”) to its customers. Specifically, Feedly receives or collects the following types of Customer PI: First Name and Last Name; Contact information (E-mail address, physical business address) and profile picture. Visitors to its Site may provide Visitor PI (including name and business email address) so that Feedly can contact them to provide information about their Services.
+
+With Whom?: Feedly shares PI with trusted Service Providers for the business purposes of providing the Services and includes the following types of services: sales automation, website management, payment processing, integration partners, platform hosting, security monitoring, email marketing, marketing communications, marketing analytics, and technical support.
+
+Aggregated Information: Feedly may use aggregated or de-identified information (not containing personal information) (“Aggregated Information”) to analyze trends and improve its Services.
+
+Compliance with Laws: Feedly may disclose PI to a third party if (a) it believes that such disclosure is reasonably necessary to comply with any applicable law, regulation, legal process or governmental request, or (b) to protect the security or integrity of the Services from harm or illegal activities.
+
+Business Transfers: Feedly may share or transfer PI in connection with, any merger, sale of Feedly assets, financing, or acquisition of all or a portion of the business to another company. Feedly may share or transfer Aggregated Information to affiliate or related companies for its business purposes.
+
+California Residents: Feedly does not sell PI as defined under CCPA. Feedly upholds the right of non-discrimination as defined under CCPA.
+
+Nevada Residents: Feedly does not sell PI as defined by Section 1.6 of Chapter 603A of the Nevada Revised Statutes.
+
+Your Right to Control and Access Your Personal Information
+Your Account: You may update, correct or delete information about you at any time by logging into your online account and modifying your information or by emailing us at privacy@feedly.com.
+
+Retention Policy: You may delete data that you have provided to the Services at any time. Feedly will delete any account information following the termination of a registered account.
+
+Do Not Track. Some browsers offer a “do not track” (“DNT”) option. We do not respond to DNT signals.
+
+EU Users. EU users have several rights with respect to their personal data including the following: (i) the right to be informed (ii) the right of access; (iii) the right of rectification; (iv) the right of erasure; (v) the right to restrict processing; (vi) the right of data portability; (vii) the right to object to processing; and (viii) the rights in relation to automated decision making and profiling. EU users also have the right to lodge a complaint about the collection or use of their personal information by notifying their EU supervisory authority. Please feel free to contact us regarding this or any other EU data subject right at privacy@feedly.com.
+
+CA Users. Feedly collects only the personal information of its B2B customers as defined by California’s Consumer Protection Act (“CCPA”). Feedly does not sell its B2B customers’ information as defined under CCPA. Feedly upholds CA residents’ rights of non-discrimination as defined under CCPA.
+
+Security
+We employ industry standard technological measures that are reasonably designed to help protect your personal information from loss, unauthorized access, disclosure, alteration or destruction. Feedly may use, without limitation, firewalls, password protection, secure socket layer, and other security measures to help prevent unauthorized access to your personal information. While we take reasonable efforts to guard personal information, no security system is impenetrable.
+
+Policy On Information Collected From Children
+This Site and our Services are not directed at children under the age of 13. Feedly does not knowingly collect personal information from children under the age of 13. If you become aware that a child has provided us with personal information, please contact us at privacy@feedly.com.
+
+Changes
+Feedly may need to update this Privacy Policy from time to time to reflect changes to our Services and the laws applicable to our provision of the Services to you. If we do change this Privacy Policy, we will notify you by revising the “Last Updated” date at the top of this Privacy Policy on the Site. If there are material changes to this Privacy Policy, Feedly will notify registered users of our Services. Feedly encourages you to review this Privacy Policy regularly for any changes. Your continued use of this Site or the Services and/or continued provision of personal information to us after the posting of such notice will be subject to the terms of the then-current Privacy Policy. If you disagree with any applicable change, you will need to close your account and stop using the Site and the Services.
+
+Contact
+If you have any questions regarding this Privacy Policy, please contact us via email at privacy@feedly.com.
+
+DMCA Policy
+If you own a copyright or have authority to act on behalf of a copyright owner and want to report a claim that a third party is infringing that material on or through Feedly’s services, please send a notice that meets the minimum requirements of the DMCA to our DMCA designated agent, and we will take appropriate action.
+
+Your notice of copyright infringement must include the following:
+
+Your contact information (full name, mailing address, phone number and, if available, an email address)
+Identification of the copyrighted work you claim has been infringed, or if multiple works at a single online site are covered by a single notification, a representative list of such works at that site
+Identification of the material you claim is infringing, and information reasonably sufficient to permit us to locate the material
+These statements:
+I have a good faith belief that use of the material is not authorized by the copyright owner, its agent, or the law.
+Under penalty of perjury, the information in this notification is accurate and that I am the copyright owner, or am authorized to act on behalf of the owner, of an exclusive right that is allegedly infringed.
+Your electronic or physical signature

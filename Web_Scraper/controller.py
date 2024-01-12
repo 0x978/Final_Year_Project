@@ -11,7 +11,7 @@ from duckpy import Client
  - Scrape the TOS / Privacy policy for each service.
  - Write all this data to disk.
  
- WARNING: This will take around 45670 seconds (12.6+ hours...) to run to collect such a vast dataset.
+ WARNING: This will take around 45000+ seconds (12.6+ hours...) to run to collect such a vast dataset.
 '''
 
 
