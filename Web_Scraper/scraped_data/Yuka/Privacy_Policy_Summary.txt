@@ -1,1 +1,0 @@
-Your data may be processed and stored anywhere in the world. Do Not Track (DNT) headers are ignored and you are tracked anyway even if you set this header.. This service may collect, use, and share location data. The service claims to be GDPR compliant for European users. Google analytics(/for Firebase) is used for statistics

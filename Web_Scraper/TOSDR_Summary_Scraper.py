@@ -109,7 +109,7 @@ class TOSDR_Summary_Scraper:
                     self.serviceInformation["Terms_URL"] = self.find_source_url(anchor_elements)
 
             # If the cite contains "Privacy policy", conclude it originates from the privacy policy.
-            elif "privacy policy" in cite_element_text.lower():
+            elif "privacy" in cite_element_text.lower():
                 source = "privacy policy"
                 if not self.serviceInformation["Privacy_URL"]:  # If the Privacy Policy URL is not set, find it.
                     self.serviceInformation["Privacy_URL"] = self.find_source_url(anchor_elements)
@@ -144,5 +144,5 @@ class TOSDR_Summary_Scraper:
 
 # Below for testing purposes
 # scraper = TOSDR_Summary_Scraper()
-# print(scraper.scrape_from_url("https://edit.tosdr.org/services/2407"))
+# print(scraper.scrape_from_url("https://edit.tosdr.org/services/1946"))
 # print(scraper.find_source("https://edit.tosdr.org/points/1082"))

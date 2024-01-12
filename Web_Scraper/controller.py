@@ -17,18 +17,11 @@ from duckpy import Client
 
 class Controller:
     overall_start_time = time.time()
-    processed_URLs = set()  # Store any processed URLs,
 
     def main(self):
         with open("URL_List.txt") as file:  # Open URL list scraped by "TOSDR list scraper"
             for line in file:
                 line = line.strip()  # remove whitespace from end of line
-
-                # Avoid collecting the same service more than once.
-                if line in self.processed_URLs:
-                    print(f'----------ERROR: URL ({line}) already processed!,-------------------')
-                    continue
-                self.processed_URLs.add(line)
 
                 # Make objects of the other two scrapers.
                 generic_site_scraper = GenericSiteTosScraper()
@@ -114,10 +107,10 @@ class Controller:
                               f' seconds, with {num_files} websites scraped')
                         return
 
-                # If something went wrong with receiving a scraped summary, wait 10 seconds and move to next service
+                # If something went wrong with receiving a scraped summary, wait 5 seconds and move to next service
                 else:
                     print(f'ERROR: Scraped summary not retrieved for {line}')
-                    time.sleep(10)  # In-case site is experiencing high load
+                    time.sleep(5)  # In-case site is experiencing high load
 
     # Writes the given text to file.
     # Places in a directory named after the website the text comes from.

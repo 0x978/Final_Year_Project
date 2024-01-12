@@ -78,8 +78,14 @@ class GenericSiteTosScraper:
                 if any(keyword in class_value.lower() for keyword in exclude_keywords):
                     continue
 
-            if element.get_text():
-                cleaned_text = re.sub(r'\s+', ' ', element.get_text().strip())  # Remove unnecessary space
+            # Extracting element text from element WITHOUT also extracting from its children.
+            # For some reason `element.get_text()` also extracts text from an elements children.
+            # The workaround for this is sourced from the below
+            # https://stackoverflow.com/questions/4995116/only-extracting-text-from-this-element-not-its-children
+            element_text = s = "".join(element.find_all(string=True, recursive=False))
+
+            if element_text:
+                cleaned_text = re.sub(r'\s+', ' ', element_text.strip())  # Remove unnecessary space
                 if cleaned_text not in unique_content:  # try not to catch things more than once (potentially slow)
                     unique_content.append(cleaned_text)
 
@@ -87,4 +93,4 @@ class GenericSiteTosScraper:
         return unique_content
 
 # scraper = GenericSiteTosScraper()
-# print(scraper.scrape("https://vimeo.com/terms"))
+# print(scraper.scrape("https://bitly.com/pages/privacy"))
