@@ -23,4 +23,12 @@ chrome.runtime.onMessage.addListener( (request) => {
             text: "DONE",
         })
     }
+    // Opens a new tab with the "summaryPage.html" file.
+    if (request.message === "receive_response"){
+        void chrome.tabs.create({url: "HTML/summaryPage.html"}).then((tab) =>{
+            setTimeout(() =>{
+                void chrome.tabs.sendMessage(<number>tab.id, { "message": "send_summary", "response": request.response});
+            },1000)
+        })
+    }
 })
