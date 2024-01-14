@@ -16,6 +16,10 @@ class ClassifierScraper:
     total_services = len(scraped_service_array)
     count = 0
 
+    positive_count = 0
+    neutral_count = 0
+    negative_count = 0
+
     def scrape(self):
         with open("URL_List.txt") as file:  # Open URL list scraped by "TOSDR list scraper"
             for line in file:
@@ -41,10 +45,14 @@ class ClassifierScraper:
                         self.write_ranking_to_service(website_name, ranking)
                         self.count += 1
                         print(f'Wrote {website_name} with rating of {rating} to disk, equivalent to rank: "{ranking}"'
-                              f' (current count = {self.count})')
+                              f' (current count = {self.count} / {self.total_services})')
 
         print(f'Finished scraping ratings for {self.count} out of {self.total_services} in '
-              f'{time.time() - self.overall_start_time} seconds')
+              f'{time.time() - self.overall_start_time} seconds '
+              f'The dataset consists of: '
+              f'\n {self.positive_count} positive summaries'
+              f'\n {self.neutral_count} neutral summaries'
+              f'\n {self.negative_count} negative summaries')
 
     # given a url from "URL_List" (scraped by TOSDR_List_Scraper) - returns the service's name and TOS;DR rating.
     def get_service_name_and_rating(self, url):
@@ -101,10 +109,13 @@ class ClassifierScraper:
     # Given a TOS;DR rating (A,B,C,D,E,F), converts this to "negative, neutral, positive"
     def convert_rating_to_ranking(self, rating):
         if rating in {'E', 'D'}:
+            self.negative_count += 1
             return "negative"
         elif rating == 'C':
+            self.neutral_count += 1
             return "neutral"
         elif rating in {'B', 'A'}:
+            self.positive_count += 1
             return "positive"
         else:
             return None
