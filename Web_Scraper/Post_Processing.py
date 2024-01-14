@@ -45,12 +45,14 @@ class PostProcessing:
         privacy_policy_max = 0
         privacy_policy_min = float('inf')
         privacy_len_array = []
+        privacy_policy_max_name = ""
 
         terms_and_conditions_count = 0
         tos_cumulative_length = 0
         tos_max = 0
         tos_min = float('inf')
         tos_len_array = []
+        tos_max_name = ""
 
         privacy_summary_count = 0
         terms_summary_count = 0
@@ -72,6 +74,7 @@ class PostProcessing:
 
                             if privacy_policy_length > privacy_policy_max:
                                 privacy_policy_max = privacy_policy_length
+                                privacy_policy_max_name = file_path
 
                             if privacy_policy_length < privacy_policy_min:
                                 privacy_policy_min = privacy_policy_length
@@ -86,6 +89,7 @@ class PostProcessing:
 
                             if terms_len > tos_max:
                                 tos_max = terms_len
+                                tos_max_name = file_path
 
                             if tos_min > terms_len:
                                 tos_min = terms_len
@@ -106,7 +110,7 @@ class PostProcessing:
               f'{privacy_policy_count} Privacy Policy documents and {privacy_summary_count} accompanying summaries. \n'
               f'The average length of a privacy policy document was {avg_privacy_policy_length} characters \n'
               f'The median length of a privacy policy document was {median_privacy_length} characters \n'
-              f'The largest privacy policy document was {privacy_policy_max} characters \n'
+              f'The largest privacy policy document was {privacy_policy_max} characters: {privacy_policy_max_name} \n'
               f'The smallest privacy policy document was {privacy_policy_min} characters \n'
               
               f'\n'
@@ -114,7 +118,7 @@ class PostProcessing:
               f'{terms_and_conditions_count} Terms and Conditions and {terms_summary_count} accompanying summaries \n'
               f'The average length of a terms and conditions document was {avg_tos_length} characters \n'
               f'The median length of a terms and conditions document was {median_tos_length} characters \n'
-              f'The largest terms and conditions document was {tos_max} characters \n'
+              f'The largest terms and conditions document was {tos_max} characters: {tos_max_name} \n'
               f'The smallest terms and conditions document was {tos_min} characters \n'
               )
 
