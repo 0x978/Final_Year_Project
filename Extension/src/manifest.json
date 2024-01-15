@@ -4,7 +4,7 @@
   "description": "Summarises terms and conditions and privacy policies.",
   "version": "1.0",
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "HTML/popup.html",
     "default_icon": {
       "32": "images/temp_icon (32x32).png"
     }

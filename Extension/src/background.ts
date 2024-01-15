@@ -28,7 +28,7 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
     // Opens a new tab with the "summaryPage.html" file and resets the popup html.
     if (request.message === "receive_response"){
-        void chrome.action.setPopup({popup: "popup.html"});
+        void chrome.action.setPopup({popup: "HTML/popup.html"});
         received_summary = request.response // stores the summary in variable "received_summary"
         void chrome.tabs.create({url: "HTML/summaryPage.html"})
     }

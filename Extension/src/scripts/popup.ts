@@ -83,7 +83,7 @@ async function buttonInitialiser(button: HTMLButtonElement) {
         setButtonState(button, {buttonText: "loading...", isActive: false})
 
         // Change popup HTML to "Loading"
-        location.href = 'HTML/Loading.html'
+        location.href = '../HTML/Loading.html'
 
         // Sends message to summariser script to summarise the current page.
         // "RequestType" is either T&Cs or privacy policies
@@ -91,7 +91,7 @@ async function buttonInitialiser(button: HTMLButtonElement) {
             "requestType":requestType});
 
         // Once the above is finished processing, set popup html back to default
-        location.href = "popup.html"
+        location.href = "../HTML/popup.html"
 
         const defaultText = requestType === "Privacy Policy"
             ? DEFAULT_PRIVACY_BUTTON_TEXT
