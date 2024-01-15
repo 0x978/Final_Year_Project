@@ -11,8 +11,9 @@ app = Flask("Server")  # Creates flask instance called server
 CORS(app)  # Enable CORS on server
 
 # Initialize the model
-trained_tokeniser = LEDTokenizer.from_pretrained("NEW-Privacy-Policy-Model")
-trained_model = LEDForConditionalGeneration.from_pretrained("NEW-Privacy-Policy-Model")
+PRIVACY_POLICY_PATH = "NEW-Privacy-Policy-Model_4_epoch"
+trained_tokeniser = LEDTokenizer.from_pretrained(PRIVACY_POLICY_PATH)
+trained_model = LEDForConditionalGeneration.from_pretrained(PRIVACY_POLICY_PATH)
 summarizer = pipeline("summarization", model=trained_model, tokenizer=trained_tokeniser)
 
 

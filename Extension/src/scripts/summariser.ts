@@ -6,8 +6,10 @@
 
 chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if (request.message === "summarise_terms") {
+
         console.log("received summary request")
         changeIcon("on")
+        void chrome.runtime.sendMessage({"message": "setLoading"});
         let pageContent = scrape_page();
 
         (async () => {

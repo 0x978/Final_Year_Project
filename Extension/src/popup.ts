@@ -82,10 +82,16 @@ async function buttonInitialiser(button: HTMLButtonElement) {
         // Set button state to inactive, and text to "Loading"...
         setButtonState(button, {buttonText: "loading...", isActive: false})
 
-        const res = tab?.id && await chrome.tabs.sendMessage(tab.id, {"message": "summarise_terms",
+        // Change popup HTML to "Loading"
+        location.href = 'HTML/Loading.html'
+
+        // Sends message to summariser script to summarise the current page.
+        // "RequestType" is either T&Cs or privacy policies
+        tab?.id && await chrome.tabs.sendMessage(tab.id, {"message": "summarise_terms",
             "requestType":requestType});
 
-        console.log("response:", res.res) // print to console for now
+        // Once the above is finished processing, set popup html back to default
+        location.href = "popup.html"
 
         const defaultText = requestType === "Privacy Policy"
             ? DEFAULT_PRIVACY_BUTTON_TEXT
