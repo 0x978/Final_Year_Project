@@ -1,9 +1,9 @@
 let xyz = document.getElementById("test")
 
-
-chrome.runtime.onMessage.addListener(function (request) {
-    if (request.message === "send_summary") {
-        console.log(request.response)
-        xyz!.innerText = request.response
-    }
-});
+// fetch the produced summary from background.ts after the page has loaded.
+document.addEventListener('DOMContentLoaded', function () {
+    chrome.runtime.sendMessage({"message": `fetch_summary`}).then((res) =>{
+        console.log(res)
+        xyz!.innerText = res.summary
+    })
+})

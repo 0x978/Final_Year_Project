@@ -15,6 +15,8 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
             resetMemory(request.requestType)
             sendResponse({"res": res})
             changeIcon("done")
+
+            // Pass the summary to "background.ts" - which will then open a new tab.
             void chrome.runtime.sendMessage({"message": "receive_response", "response":res.summarized_text});
         })();
         return true
