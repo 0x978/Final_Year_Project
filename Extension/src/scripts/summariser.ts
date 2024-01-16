@@ -9,8 +9,8 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
         console.log("received summary request")
         changeIcon("on")
-        void chrome.runtime.sendMessage({"message": "setLoading"});
-        let pageContent = scrape_page();
+        let pageContent = scrape_page()
+        void chrome.runtime.sendMessage({"message": "setLoading", "documentLength":pageContent.length});
 
         (async () => {
             const res = await receiveSummary(pageContent);

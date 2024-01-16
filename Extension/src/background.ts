@@ -2,6 +2,7 @@
 // Handles some properties regarding the extension which can't be handled in scripts
 
 let received_summary:string|undefined = undefined
+let documentLength:number|undefined = undefined
 
 chrome.runtime.onInstalled.addListener(() => {
     void chrome.action.setBadgeText({
@@ -39,12 +40,21 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     }
 
     // Changes the popup HTML to a loading HTML.
+    // Also sends out a message with the summary length (received by loading.ts)
     if(request.message === "setLoading"){
+        documentLength = request.documentLength
         void chrome.action.setPopup({popup: "HTML/Loading.html"});
+        void chrome.runtime.sendMessage({"message": `send_summary_length`,"doc_length":documentLength})
     }
 
+    // Changes popup HTML to default "popup.html"
     if(request.message === "setDefault"){
-        void chrome.action.setPopup({popup: "popup"});
+        void chrome.action.setPopup({popup: "HTML/popup.html"});
     }
 
+    // Returns the most recently processed document's length.
+    // Currently used by Loading.ts
+    if(request.message === "getDocumentLength"){
+        sendResponse({"docLength":documentLength})
+    }
 })
