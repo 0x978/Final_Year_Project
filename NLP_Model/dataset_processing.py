@@ -45,6 +45,22 @@ def json_merger(merged_file, *jsons): # Asterisk in param means we can pass in a
                     out_file.write(line)
 
 
+def process_score_dataset(path):
+    for folder in os.listdir(path):
+        joint_path = f'{path}/{folder}'
+
+        tos_summary_path = joint_path + '/Terms_Summary.txt'
+        privacy_summary_path = joint_path + '/Privacy_Policy_Summary.txt'
+        rating_path = joint_path + '/rating.txt'
+
+        print(process_score(rating_path))
+
+def process_score(path):
+    if os.path.exists(path):
+        with open(path, 'r', encoding="utf-8") as curr_doc:
+            return curr_doc.read().strip()
+
 SCRAPED_DATA_PATH = "../Web_Scraper/scraped_data"
 #process_json(SCRAPED_DATA_PATH, "Terms")
 #json_merger("Merged_Dataset.jsonl","Privacy_Policy_dataset.jsonl","Terms_dataset.jsonl")
+process_score_dataset(SCRAPED_DATA_PATH)

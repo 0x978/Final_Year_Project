@@ -73,6 +73,10 @@ class ClassifierScraper:
         h1_elements = soup.find_all(['h1'])  # get all H1 elements of page.
         website_name = h1_elements[0].text  # the first H1 element has the service name, retrieve its text.
 
+        # Format the website name in the same way as in `controller.py`.
+        # Essential to ensure the service name matches the name in the scraped dataset
+        website_name = ''.join(char for char in website_name if char.isalnum() or char.isspace()).rstrip()
+
         h5_elements = soup.find_all(['h5'])  # get all H5 elements of page.
         website_rating_text = h5_elements[0].text  # the first H5 element has the service rating, retrieve its text.
 
