@@ -2,24 +2,16 @@
 // in development, the current state of memory can be read with the following in the extension console
 // chrome.storage.sync.get((res) => console.log(res))
 
-interface buttonState {
-    buttonText: string,
-    isActive: boolean,
-}
 
-const DEFAULT_PRIVACY_BUTTON_TEXT = "Summarise Privacy Policy"
-const DEFAULT_TOS_BUTTON_TEXT = "Summarise T&C"
 
 document.addEventListener('DOMContentLoaded', function () {
     let privacyPolicyButton = document.getElementById('privacyPolicyButton');
     let termsConditionsButton = document.getElementById("termsConditionsButton")
-    document.getElementById("reset")?.addEventListener('click', () => resetButtonState())
 
     // Null check
     if (privacyPolicyButton === null || termsConditionsButton === null) {
         return
     }
-
 
     // Button initialisation
     // Initialises button state and adds event handler.
@@ -42,33 +34,9 @@ async function getCurrentUserTab() {
     return tab;
 }
 
-// Set the text of a given button element in the popup.html UI.
-function setButtonState(button: HTMLButtonElement, state: buttonState) {
-    const stringButtonState = `${button.id}_state`
-    void chrome.storage.sync.set({ [stringButtonState]: state });
-    button.innerText = state.buttonText
-    button.disabled = !state.isActive
-}
-
-// fetches the current button state from memory.
-async function getButtonState(button: HTMLButtonElement): Promise<undefined | buttonState> {
-    const stringButtonState = `${button.id}_state`
-    let buttonState = undefined
-    await chrome.storage.sync.get(`${stringButtonState}`).then((res) => {
-        buttonState = res[stringButtonState]
-    })
-    return buttonState
-}
-
 // Asynchronously fetches and sets button state from memory and initialises event listeners.
 async function buttonInitialiser(button: HTMLButtonElement) {
     const buttonID = button.id
-
-    // Set button state (text, is button clickable?)
-    const buttonState = await getButtonState(button)
-    if (buttonState) {
-        setButtonState(button, buttonState)
-    }
 
     // add event listener to button.
     // Responsible for running the summariser when the button is pressed.
@@ -78,9 +46,6 @@ async function buttonInitialiser(button: HTMLButtonElement) {
             : "Terms and Conditions"
 
         let tab = await getCurrentUserTab()
-
-        // Set button state to inactive, and text to "Loading"...
-        setButtonState(button, {buttonText: "loading...", isActive: false})
 
         // Change popup HTML to "Loading"
         location.href = '../HTML/Loading.html'
@@ -92,15 +57,3 @@ async function buttonInitialiser(button: HTMLButtonElement) {
     });
 }
 
-// Hopefully not needed in release
-// resets button states.
-function resetButtonState(){
-    chrome.storage.sync.clear().then(_ =>{
-        let privacyPolicyButton = document.getElementById('privacyPolicyButton');
-        let termsConditionsButton = document.getElementById("termsConditionsButton")
-        console.log("Memory cleared")
-        setButtonState(privacyPolicyButton as HTMLButtonElement ,{buttonText:DEFAULT_PRIVACY_BUTTON_TEXT, isActive: true})
-        setButtonState(termsConditionsButton as HTMLButtonElement ,{buttonText:DEFAULT_TOS_BUTTON_TEXT, isActive: true})
-        void chrome.runtime.sendMessage({"message": `off_badge`});
-    })
-}
