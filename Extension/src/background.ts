@@ -29,9 +29,19 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
     // Opens a new tab with the "summaryPage.html" file and resets the popup html.
     if (request.message === "receive_response"){
-        void chrome.action.setPopup({popup: "HTML/popup.html"});
         received_summary = request.response // stores the summary in variable "received_summary"
-        void chrome.tabs.create({url: "HTML/summaryPage.html"})
+
+        if(received_summary === undefined){ // if the received summary is undefined - an error occurred in summarisation
+            // set default popup to error.html
+            void chrome.action.setPopup({popup: "HTML/error.html"})
+            // set current popup to error html by sending message to loading.ts saying an error occurred
+            void chrome.runtime.sendMessage({"message": `summariser_error`})
+        }
+
+        else{
+            void chrome.action.setPopup({popup: "HTML/popup.html"});
+            void chrome.tabs.create({url: "HTML/summaryPage.html"})
+        }
     }
 
     // sends the stored summary to the requester.

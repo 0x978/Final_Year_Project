@@ -6,7 +6,6 @@
 
 chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if (request.message === "summarise_terms") {
-
         console.log("received summary request")
         changeIcon("on")
         let pageContent = scrape_page()
@@ -14,8 +13,13 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
         (async () => {
             const res = await receiveSummary(pageContent);
+
+            if(!res){
+                void chrome.runtime.sendMessage({"message": "receive_response", "response":undefined});
+                return
+            }
+
             resetMemory(request.requestType)
-            sendResponse({"res": res})
             changeIcon("done")
 
             // Pass the summary to "background.ts" - which will then open a new tab.
@@ -32,12 +36,17 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 })
 
 async function receiveSummary(document:String){
-    const res = await fetch("http://127.0.0.1:5000/summarise",{
-        method:"POST",
-        body: JSON.stringify(document) //converts to a JSON string.
-    })
-    console.log("Received response")
-    return await res.json()
+    try{
+        const res = await fetch("http://127.0.0.1:5000/summarise",{
+            method:"POST",
+            body: JSON.stringify(document) //converts to a JSON string.
+        })
+        console.log("Received response")
+        return await res.json()
+    }
+    catch {
+        return undefined
+    }
 }
 
 function scrape_page(){

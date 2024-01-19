@@ -40,4 +40,10 @@ function calculateEstimatedTime(documentLength:number){
     return Math.round(estimate_seconds)
 }
 
-
+// If an error occurs during summarisation, this message is received from background.ts.
+// if received, open the error html popup
+chrome.runtime.onMessage.addListener( (request) => {
+    if (request.message == "summariser_error") {
+        location.href = "../HTML/error.html"
+    }
+})

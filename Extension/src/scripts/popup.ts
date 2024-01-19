@@ -89,16 +89,6 @@ async function buttonInitialiser(button: HTMLButtonElement) {
         // "RequestType" is either T&Cs or privacy policies
         tab?.id && await chrome.tabs.sendMessage(tab.id, {"message": "summarise_terms",
             "requestType":requestType});
-
-        // Once the above is finished processing, set popup html back to default
-        location.href = "../HTML/popup.html"
-
-        const defaultText = requestType === "Privacy Policy"
-            ? DEFAULT_PRIVACY_BUTTON_TEXT
-            : DEFAULT_TOS_BUTTON_TEXT
-
-        // reset button state active, and text to default.
-        setButtonState(button ,{buttonText: defaultText, isActive: true})
     });
 }
 
