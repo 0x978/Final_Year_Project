@@ -4,22 +4,28 @@
 // Logic in the file follows below URL for solution to above chrome issue
 // https://stackoverflow.com/questions/53024819/sendresponse-not-waiting-for-async-function-or-promises-resolve
 
+interface requestType{
+    doc: String,
+    doctype: String
+}
+
 chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if (request.message === "summarise_terms") {
+        let documentType = request.requestType
         console.log("received summary request")
         changeIcon("on")
         let pageContent = scrape_page()
         void chrome.runtime.sendMessage({"message": "setLoading", "documentLength":pageContent.length});
 
         (async () => {
-            const res = await receiveSummary(pageContent);
+            const res = await receiveSummary(pageContent,documentType);
 
             if(!res){
                 void chrome.runtime.sendMessage({"message": "receive_response", "response":undefined});
                 return
             }
 
-            resetMemory(request.requestType)
+            resetMemory(documentType)
             changeIcon("done")
 
             // Pass the summary to "background.ts" - which will then open a new tab.
@@ -35,11 +41,19 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     }
 })
 
-async function receiveSummary(document:String){
+async function receiveSummary(document:String,documentType:String){
+    const requestData:requestType = {
+        doc: document,
+        doctype: documentType
+    }
+
     try{
         const res = await fetch("http://127.0.0.1:5000/summarise",{
             method:"POST",
-            body: JSON.stringify(document) //converts to a JSON string.
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData)
         })
         console.log("Received response")
         return await res.json()
