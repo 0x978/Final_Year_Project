@@ -4,6 +4,7 @@
 let received_summary:string|undefined = undefined
 let classification:string|undefined = undefined
 let documentLength:number|undefined = undefined
+let startTime:number|undefined = undefined
 
 chrome.runtime.onInstalled.addListener(() => {
     void chrome.action.setBadgeText({
@@ -54,9 +55,12 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     // Changes the popup HTML to a loading HTML.
     // Also sends out a message with the summary length (received by loading.ts)
     if(request.message === "setLoading"){
+        startTime = Date.now()
         documentLength = request.documentLength
         void chrome.action.setPopup({popup: "HTML/Loading.html"});
         void chrome.runtime.sendMessage({"message": `send_summary_length`,"doc_length":documentLength})
+        void chrome.runtime.sendMessage({"message": `send_start_time`,"time":startTime})
+
     }
 
     // Changes popup HTML to default "popup.html"
@@ -68,5 +72,9 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     // Currently used by Loading.ts
     if(request.message === "getDocumentLength"){
         sendResponse({"docLength":documentLength})
+    }
+
+    if(request.message === "getSummaryStartTime"){
+        sendResponse({"time":startTime})
     }
 })

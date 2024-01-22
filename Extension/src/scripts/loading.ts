@@ -1,5 +1,6 @@
 const characterCountElement:HTMLElement|null = document.getElementById("characterCount")
 const estimatedTimeElement:HTMLElement|null = document.getElementById("loadingTime")
+const timeElapsedElement:HTMLElement|null = document.getElementById("timeElapsed")
 
 
 // Updates document length / estimated time on initial button press.
@@ -9,7 +10,6 @@ chrome.runtime.onMessage.addListener( (request) => {
     if (request.message == "send_summary_length" && characterCountElement && estimatedTimeElement) {
         let documentLength = request.doc_length
         let estimatedTime = calculateEstimatedTime(documentLength)
-
         characterCountElement.innerHTML = `Document length: ${documentLength}`
         estimatedTimeElement.innerHTML = `Estimated time: ${estimatedTime} seconds`
     }
@@ -26,6 +26,33 @@ document.addEventListener('DOMContentLoaded', function () {
             estimatedTimeElement.innerHTML = `Estimated time: ${estimatedTime} seconds`
         })
     }
+})
+
+// Calculates the amount of time that has passed since the summarisation process has started and displays it
+// Calculated via the difference between the current time and the start time - with the start time sourced from server
+// It is necessary to do this, and not just start a timer, as the state of the popup is forgotten each time it is open
+// And thus the elapsed time is forgotten each time the popup is open
+let start:number = 0
+
+// Sets start time on initial popup open
+// Same race condition applies as document length, thus it is necessary to fetch start time this way.
+chrome.runtime.onMessage.addListener( (request) => {
+    if (request.message == "send_start_time") {
+        start = request.time
+    }
+})
+
+// Below updates the element every second, or on subsequent opens of the popup.
+document.addEventListener('DOMContentLoaded', function () {
+    chrome.runtime.sendMessage({"message": 'getSummaryStartTime'}).then((res) => {
+        start = res.time
+    })
+
+    setInterval(() => { // update elapsed time each second
+        let time = Date.now()
+        let elapsedSeconds = Math.floor(((time - start) / 1000)) // Time is given in ms, convert
+        timeElapsedElement!.innerHTML  = `Time Elapsed: ${elapsedSeconds} seconds`;
+    }, 1000);
 })
 
 // Logic for this function depends on the fact the summariser can summarise ~20,000 chars in ~1 minute
