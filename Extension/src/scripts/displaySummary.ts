@@ -1,9 +1,11 @@
-let listElement = document.getElementById("test")
+let listElement = document.getElementById("summaryPoints")
+let ratingElement = document.getElementById("ratingElement")
 
 // fetch the produced summary from background.ts after the page has loaded.
 document.addEventListener('DOMContentLoaded', function () {
     chrome.runtime.sendMessage({"message": `fetch_summary`}).then((res) =>{
         listElement!.innerHTML = summaryToBulletPoints(res.summary)
+        ratingElement!.innerHTML = `Rating: ${res.classification}`
     })
 })
 

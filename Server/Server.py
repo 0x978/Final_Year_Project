@@ -32,7 +32,7 @@ classifier_model = AutoModelForSequenceClassification.from_pretrained(CLASSIFIER
 def summarise_input():
     request_json = request.get_json()
     document = request_json.get('doc')
-    document_type = document = request_json.get('doctype')
+    document_type = request_json.get('doctype')
 
     if not document or not document_type:  # If nothing is passed in - or some error occurs in parsing
         return jsonify({"error": "Document not received by the server."}), 400
