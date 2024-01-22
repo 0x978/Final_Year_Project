@@ -2,6 +2,7 @@
 // Handles some properties regarding the extension which can't be handled in scripts
 
 let received_summary:string|undefined = undefined
+let classification:string|undefined = undefined
 let documentLength:number|undefined = undefined
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -29,7 +30,8 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
     // Opens a new tab with the "summaryPage.html" file and resets the popup html.
     if (request.message === "receive_response"){
-        received_summary = request.response // stores the summary in variable "received_summary"
+        received_summary = request.summary // stores the summary in variable "received_summary"
+        classification = request.classification
 
         if(received_summary === undefined){ // if the received summary is undefined - an error occurred in summarisation
             // set default popup to error.html
@@ -46,7 +48,7 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
     // sends the stored summary to the requester.
     if(request.message === "fetch_summary"){
-        sendResponse({"summary":received_summary})
+        sendResponse({"summary":received_summary,"classification":classification})
     }
 
     // Changes the popup HTML to a loading HTML.
