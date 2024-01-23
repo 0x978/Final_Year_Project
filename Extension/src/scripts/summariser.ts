@@ -35,9 +35,14 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
     }
 
-    if(request.message === "receivePageContent"){
+    // Used in popup.ts to receive information about the current page in order to infer document type
+    // i.e. is privacy policy or terms and conditions?
+    if(request.message === "receivePageDetails"){
+        // grab page content and the path name.
+        // The path is the end of the URL, e.g. "www.example.com/privacy" will return "privacy"
         let pageContent = scrape_page()
-        sendResponse({"pageContent": pageContent})
+        let pagePath = window.location.pathname
+        sendResponse({"pageContent": pageContent, "websitePath":pagePath})
         return true
     }
 

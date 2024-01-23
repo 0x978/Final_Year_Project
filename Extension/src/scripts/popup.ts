@@ -33,10 +33,44 @@ async function getCurrentUserTab() {
     return tab;
 }
 
+// Given all popup.html buttons, initialises the relevant buttons depending on the page context.
+// i.e. if on a privacy policy page, only a button which summarises privacy policy is enabled.
+// If uncertain, enable both buttons.
+// It sources the information regarding the page content and URL path from summariser.ts who has access to this info
+async function initialiseButtons(privacyPolicyButton:HTMLButtonElement,termsConditionsButton:HTMLButtonElement,
+                                 genericSummariseButton:HTMLButtonElement) {
+
+    let tab = await getCurrentUserTab()
+    let res = tab?.id && await chrome.tabs.sendMessage(tab.id, {
+        "message": "receivePageDetails",
+    })
+    let pageContent = res.pageContent
+    let websitePath = res.websitePath
+
+    // try to parse document type from current URL path first
+    let documentType:documentTypes|undefined = parseDocumentTypeFromPath(websitePath)
+
+    // If unable to parse from URL, parse from document content instead.
+    if(documentType === undefined){
+        documentType = parseDocumentType(pageContent)
+    }
+
+    if(documentType === undefined){ // Document type not inferred
+        void initialiseButton(privacyPolicyButton,"Privacy Policy")
+        void initialiseButton(termsConditionsButton,"Terms and Conditions")
+    }
+
+    else{ // Document type was inferred, initialise a relevant button.
+        genericSummariseButton.innerHTML = `Summarise ${documentType}`
+        void initialiseButton(genericSummariseButton,documentType)
+    }
+
+}
+
 // Given a button object and indication whether this button is responsible for "privacy policy" or "terms and conditions",
 // Initialises the button to make it visible and give it a listener for the onclick event.
 // The onclick event will send a request to summariser.ts to summarise the current tab's content.
-async function buttonInitialiser(button: HTMLButtonElement,documentType:documentTypes) {
+async function initialiseButton(button: HTMLButtonElement, documentType:documentTypes) {
 
     button.hidden = false
 
@@ -57,56 +91,37 @@ async function buttonInitialiser(button: HTMLButtonElement,documentType:document
     });
 }
 
-async function initialiseButtons(privacyPolicyButton:HTMLButtonElement,termsConditionsButton:HTMLButtonElement,
-                                 genericSummariseButton:HTMLButtonElement) {
-
-    let tab = await getCurrentUserTab()
-    let res = tab?.id && await chrome.tabs.sendMessage(tab.id, {
-        "message": "receivePageContent",
-    })
-    let pageContent = res.pageContent
-
-    let documentType:documentTypes|undefined = parseDocumentType(pageContent)
-
-    if(documentType === undefined){
-        void buttonInitialiser(privacyPolicyButton,"Privacy Policy")
-        void buttonInitialiser(termsConditionsButton,"Terms and Conditions")
-    }
-
-    else{
-        genericSummariseButton.innerHTML = `Summarise ${documentType}`
-        void buttonInitialiser(genericSummariseButton,documentType)
-    }
-
-
-}
-
 // Given the page content, infers where the document is "terms and conditions" or "privacy policy"
 // If it is unsure - it returns undefined
+// Works by looking at first 1000 words and taking first instance of text which indicates document type.
+// Checks if any of these instances are prefixed by "this" - if so, this can guarantee document type - end execution
 function parseDocumentType(document:string):documentTypes|undefined {
     if(!document){
         return undefined
     }
+
     // Remove all punctuation from document, as it causes problem with parsing
     document = document.replace(/[.,\/#!$%\^\*;:{}=\-_`~()]/g, '')
 
     // Split document by space as a quick hack to iterate over words
     let words: string[] = document.split(/\s+/);
 
-    // Take first 1000 words - if can't find instance in first 1000 words - return unsure
+    // Take first 1000 words
     let selectedWords: string[] = words.slice(0, 1000);
 
     // some service simply refer to their terms and conditions as "terms"
     // this flag is true if this is the case, and if nothing else is found in the 1000 words, return true
     let terms_flag = false
 
+    // Arrays holding the possible words which may indicate terms or may indicate privacy policy
     const terms_first_words = ["terms"]
     const terms_second_words = ["of","and","&"]
     const terms_third_words = ["conditions","service","use"]
-
     const privacy_first_words = ["privacy"]
     const privacy_second_words = ["policy","notice","statement"]
 
+    // holds the index at which the instance of text deciding document text was found.
+    // At end of document parsing - will take the lowest value.
     let termsMatchIndex = Infinity
     let privacyMatchIndex = Infinity
 
@@ -123,7 +138,7 @@ function parseDocumentType(document:string):documentTypes|undefined {
                     if(prevWord === "this"){
                         return "Terms and Conditions"
                     }
-                    if(termsMatchIndex === Infinity){ // if not yet set terms index
+                    if(termsMatchIndex === Infinity){
                         termsMatchIndex = i
                     }
                 }
@@ -144,7 +159,7 @@ function parseDocumentType(document:string):documentTypes|undefined {
 
     }
 
-    if(termsMatchIndex === privacyMatchIndex){
+    if(termsMatchIndex === privacyMatchIndex){ // if the indexes are even (no instances were found)
         if(terms_flag){
             return "Terms and Conditions"
         }
@@ -157,3 +172,25 @@ function parseDocumentType(document:string):documentTypes|undefined {
 
 }
 
+// Given a URL path, analysing it for keywords which may give away the document type.
+// e.g. "terms" or "privacy"
+function parseDocumentTypeFromPath(path:string):documentTypes|undefined{
+    path = path.toLowerCase()
+
+    const privacy_words = ["privacy","security","data protection"]
+    const terms_words = ["terms","tos","t&c"]
+
+    for(const word of privacy_words){
+        if(path.includes(word)) {
+            return "Privacy Policy"
+        }
+    }
+
+    for(const word of terms_words){
+        if (path.includes(word)) {
+            return "Terms and Conditions"
+        }
+    }
+
+    return undefined
+}
