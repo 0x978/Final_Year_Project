@@ -115,6 +115,9 @@ function parseDocumentType(document) {
         if(terms_flag){
             return "terms"
         }
+        else{
+            return undefined
+        }
     }
 
     return termsMatchIndex < privacyMatchIndex ? `terms` : `privacy policy ${termsMatchIndex} | ${privacyMatchIndex}`

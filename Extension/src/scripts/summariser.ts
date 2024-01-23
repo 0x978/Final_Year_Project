@@ -33,7 +33,15 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
         })();
         return true
 
-    } else {
+    }
+
+    if(request.message === "receivePageContent"){
+        let pageContent = scrape_page()
+        sendResponse({"pageContent": pageContent})
+        return true
+    }
+
+    else {
         console.log("Failed summary")
         sendResponse({"res": null})
         return true
