@@ -61,7 +61,7 @@ async function receiveSummary(document:String,documentType:String){
     }
 
     try{
-        const res = await fetch("http://127.0.0.1:5000/summarise",{
+        const res = await fetch("https://summarise.0x978.com/summarise",{
             method:"POST",
             headers: {
                 'Content-Type': 'application/json',
