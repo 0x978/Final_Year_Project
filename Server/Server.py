@@ -16,17 +16,6 @@ PRIVACY_POLICY_MODEL_PATH = "NEW_8_epoch_privacy_model"
 TERMS_AND_CONDITIONS_MODEL_PATH = "NEW-TOS_Model_4_epoch"
 CLASSIFIER_MODEL_PATH = "4_epoch_classifier_model"
 
-# Initialize the models and their tokenisers
-privacy_tokeniser = LEDTokenizer.from_pretrained(PRIVACY_POLICY_MODEL_PATH)
-privacy_model = LEDForConditionalGeneration.from_pretrained(PRIVACY_POLICY_MODEL_PATH)
-
-terms_tokeniser = LEDTokenizer.from_pretrained(TERMS_AND_CONDITIONS_MODEL_PATH)
-terms_model = LEDForConditionalGeneration.from_pretrained(TERMS_AND_CONDITIONS_MODEL_PATH)
-
-classifier_tokeniser = AutoTokenizer.from_pretrained(CLASSIFIER_MODEL_PATH)
-classifier_model = AutoModelForSequenceClassification.from_pretrained(CLASSIFIER_MODEL_PATH)
-
-
 # Route which listens on "/summarise" for incoming text and passes it to function "summarise"
 @app.route("/summarise", methods=['POST'])
 def summarise_input():
@@ -62,21 +51,38 @@ def summarise_input():
 
 # Summarises the given text using the produced model and the pipeline API from Hugging Face
 def summariser_privacy(text):
+    privacy_tokeniser = LEDTokenizer.from_pretrained(PRIVACY_POLICY_MODEL_PATH)
+    privacy_model = LEDForConditionalGeneration.from_pretrained(PRIVACY_POLICY_MODEL_PATH)
+
     # Tokenise text and Truncate any exceeding 16384 tokens.
     tokenised_text = privacy_tokeniser(text, return_tensors="pt", truncation=True).input_ids
     tokenised_result = privacy_model.generate(tokenised_text)  # Generate summary
     result = privacy_tokeniser.decode(tokenised_result[0], skip_special_tokens=True)  # decode summary to English
+
+    # Delete model from memory when done with it - significantly reduces memory usage.
+    del privacy_tokeniser, privacy_model
+
     return result
 
 
 def summariser_tos(text):
+    terms_tokeniser = LEDTokenizer.from_pretrained(TERMS_AND_CONDITIONS_MODEL_PATH)
+    terms_model = LEDForConditionalGeneration.from_pretrained(TERMS_AND_CONDITIONS_MODEL_PATH)
+
     tokenised_text = terms_tokeniser(text, return_tensors="pt", truncation=True).input_ids
     tokenised_result = terms_model.generate(tokenised_text)  # Generate summary
     result = terms_tokeniser.decode(tokenised_result[0], skip_special_tokens=True)  # decode summary to English
+
+    # Delete model from memory when done with it - significantly reduces memory usage.
+    del terms_tokeniser, terms_model
+
     return result
 
 
 def classify_summary(summary):
+    classifier_tokeniser = AutoTokenizer.from_pretrained(CLASSIFIER_MODEL_PATH)
+    classifier_model = AutoModelForSequenceClassification.from_pretrained(CLASSIFIER_MODEL_PATH)
+
     tokenised_summary = classifier_tokeniser(summary, return_tensors="pt", truncation=True)
 
     # Create probabilities into classifications "positive, "neutral" and "Negative"
@@ -88,6 +94,10 @@ def classify_summary(summary):
     # When the model was trained, it was given parameters to convert the numerical response to a label
     # i.e. 0 == "negative", 1 == "neutral", 2 == "positive"
     classification = classifier_model.config.id2label[prediction]
+
+    # Delete model from memory when done with it - significantly reduces memory usage.
+    del classifier_model, classifier_tokeniser
+
     return classification
 
 
