@@ -63,7 +63,14 @@ function calculateEstimatedTime(documentLength:number){
 
     const estimate_seconds:number = (documentLength / charsPerMin) * 60
 
-    return Math.round(estimate_seconds)
+    const rounded_estimation = Math.round(estimate_seconds)
+
+    // Minimum estimated time - 30 seconds
+    if(rounded_estimation < 30){
+        return 30
+    }
+
+    return rounded_estimation
 }
 
 // If an error occurs during summarisation, this message is received from background.ts.

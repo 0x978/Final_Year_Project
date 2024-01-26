@@ -6,11 +6,24 @@
     <title>T&C Summarizer</title>
 </head>
 <body>
-    <div class="popup-container">
+    <div class="popup-container dark-theme">
         <h1>Website agreement summariser</h1>
-        <button hidden id="privacyPolicyButton">Summarise Privacy Policy</button>
-        <button hidden id="termsConditionsButton">Summarise T&C</button>
-        <button hidden id="genericSummariseButton">Summarise</button>
+        <!--Buttons begin as "hidden" and are activated by popup.ts-->
+        <!-- At most, 2 buttons will be visible at a time - but in most scenarios - just one.-->
+
+        <button  id="privacyPolicyButton">Summarise Privacy Policy</button>
+        <button  id="termsConditionsButton">Summarise T&C</button>
+        <button  id="genericSummariseButton">Summarise</button>
+
+        <div class="top-bar">
+            <button class="settingsButton" id="Settings">
+                <img src="../images/Settings.png" alt="Settings" />
+            </button>
+            <button class="infoButton" id="Info">
+                <img src="../images/info.png" alt="Settings" />
+            </button>
+        </div>
+
     </div>
 
     <!--Script file is .js, as it is compiled into js from ts upon build-->
