@@ -1,17 +1,16 @@
 const characterCountElement:HTMLElement|null = document.getElementById("characterCount")
-const estimatedTimeElement:HTMLElement|null = document.getElementById("loadingTime")
-const timeElapsedElement:HTMLElement|null = document.getElementById("timeElapsed")
+const timeElement:HTMLElement|null = document.getElementById("timeElement")
 
+let estimatedTime = 0
 
 // Updates document length / estimated time on initial button press.
 // This needs to be separate from subsequent opens of the popup otherwise
 // there is a race condition with the length being calculated by background.ts
 chrome.runtime.onMessage.addListener( (request) => {
-    if (request.message == "send_summary_length" && characterCountElement && estimatedTimeElement) {
+    if (request.message == "send_summary_length" && characterCountElement && timeElement) {
         let documentLength = request.doc_length
-        let estimatedTime = calculateEstimatedTime(documentLength)
-        characterCountElement.innerHTML = `Document length: ${documentLength}`
-        estimatedTimeElement.innerHTML = `Estimated time: ${estimatedTime} seconds`
+        estimatedTime = calculateEstimatedTime(documentLength)
+        timeElement.innerHTML = `Estimated time: ${estimatedTime} seconds remaining`
     }
 })
 
@@ -19,11 +18,11 @@ chrome.runtime.onMessage.addListener( (request) => {
 // Since this script runs again each time the popup is opened, the length needs to be stored somewhere else.
 // Since the length is processed by background.ts anyway, it's stored there and can be received with a message.
 document.addEventListener('DOMContentLoaded', function () {
-    if(characterCountElement && estimatedTimeElement){
+    if(characterCountElement && timeElement){
         chrome.runtime.sendMessage({"message": 'getDocumentLength'}).then((res) =>{
             let estimatedTime = calculateEstimatedTime(res.docLength)
             characterCountElement.innerHTML = `Document length: ${(res.docLength)}`
-            estimatedTimeElement.innerHTML = `Estimated time: ${estimatedTime} seconds`
+            timeElement.innerHTML = `Estimated time: ${estimatedTime} seconds`
         })
     }
 })
@@ -51,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(() => { // update elapsed time each second
         let time = Date.now()
         let elapsedSeconds = Math.floor(((time - start) / 1000)) // Time is given in ms, convert
-        timeElapsedElement!.innerHTML  = `Time Elapsed: ${elapsedSeconds} seconds`;
+        timeElement!.innerHTML  = `Estimated time: ${estimatedTime - elapsedSeconds} seconds remaining`;
     }, 1000);
 })
 
