@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let privacyPolicyButton = document.getElementById('privacyPolicyButton');
     let termsConditionsButton = document.getElementById("termsConditionsButton")
     let genericSummariseButton = document.getElementById("genericSummariseButton")
+    let mainDiv = document.getElementById("main-div")
+
+    mainDiv && initialiseTopBar(mainDiv)
 
     // Null check
     if (privacyPolicyButton === null || termsConditionsButton === null) {
@@ -193,4 +196,33 @@ function parseDocumentTypeFromPath(path:string):documentTypes|undefined{
     }
 
     return undefined
+}
+
+function initialiseTopBar(mainDiv: HTMLElement) {
+    chrome.storage.sync.get(["isDark"], (result) => {
+        const isDark = result["isDark"]
+        if (!isDark) {
+            mainDiv.classList.remove("dark-theme")
+        }
+    });
+
+    const toggleDarkModeButton = document.getElementById("toggle-dark-mode") as HTMLInputElement;
+    const infoButton = document.getElementById("Info");
+
+    toggleDarkModeButton && toggleDarkModeButton.addEventListener('change', () => {
+        chrome.storage.sync.get("isDark", (result) => {
+            const isDark = result["isDark"]
+            if (isDark) {
+                mainDiv.classList.remove("dark-theme")
+            } else {
+                mainDiv.classList.add("dark-theme")
+            }
+            // Invert setting in memory
+            chrome.storage.sync.set({ "isDark": !isDark })
+        });
+    });
+
+    infoButton && infoButton.addEventListener('click', () => {
+        window.open("https://www.google.com");
+    });
 }

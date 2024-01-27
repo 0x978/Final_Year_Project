@@ -7,9 +7,13 @@ let documentLength:number|undefined = undefined
 let startTime:number|undefined = undefined
 
 chrome.runtime.onInstalled.addListener(() => {
+    // initialise badge to off
     void chrome.action.setBadgeText({
         text: "OFF",
     });
+
+    // Initialise to dark mode default
+    void chrome.storage.sync.set({ "isDark": true})
 });
 
 chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {

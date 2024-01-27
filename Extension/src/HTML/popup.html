@@ -6,21 +6,22 @@
     <title>T&C Summarizer</title>
 </head>
 <body>
-    <div class="popup-container dark-theme">
+    <div id="main-div" class="popup-container dark-theme">
         <h1>Website agreement summariser</h1>
         <!--Buttons begin as "hidden" and are activated by popup.ts-->
         <!-- At most, 2 buttons will be visible at a time - but in most scenarios - just one.-->
 
-        <button  id="privacyPolicyButton">Summarise Privacy Policy</button>
-        <button  id="termsConditionsButton">Summarise T&C</button>
-        <button  id="genericSummariseButton">Summarise</button>
+        <button id="privacyPolicyButton">Summarise Privacy Policy</button>
+        <button id="termsConditionsButton">Summarise T&C</button>
+        <button id="genericSummariseButton">Summarise</button>
 
         <div class="top-bar">
-            <button class="settingsButton" id="Settings">
-                <img src="../images/Settings.png" alt="Settings" />
-            </button>
+            <div class="dark-mode-toggle">
+                <input type="checkbox" id="toggle-dark-mode" class="checkbox">
+                <label for="toggle-dark-mode" class="label"></label>
+            </div>
             <button class="infoButton" id="Info">
-                <img src="../images/info.png" alt="Settings" />
+                <img src="../images/info.png" alt="Info" />
             </button>
         </div>
 
