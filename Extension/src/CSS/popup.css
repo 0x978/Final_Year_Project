@@ -34,6 +34,11 @@ button {
     font-weight: bold;
 }
 
+/*Give generic button a bigger width to accommodate it.*/
+#genericSummariseButton{
+    height: 50px;
+}
+
 button:hover {
     transform: translateY(-2px);
 }
@@ -141,11 +146,11 @@ button:active{
 
 .checkbox:checked + .label::before {
     left: calc(100% - 25px); /* End position - 100 of box (-25px) */
-    content: '🌚';
+    content: '🌞';
 }
 
 .label::before {
-    content: '🌞';
+    content: '🌚';
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
