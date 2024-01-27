@@ -1,19 +1,14 @@
 <html>
 <link rel="stylesheet" href="../CSS/styles.css">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T&C Summarizer</title>
 </head>
+
 <body>
     <div id="main-div" class="popup-container dark-theme">
-        <h1>Website agreement summariser</h1>
-        <!--Buttons begin as "hidden" and are activated by popup.ts-->
-        <!-- At most, 2 buttons will be visible at a time - but in most scenarios - just one.-->
-
-        <button id="privacyPolicyButton">Summarise Privacy Policy</button>
-        <button id="termsConditionsButton">Summarise T&C</button>
-        <button id="genericSummariseButton">Summarise</button>
 
         <div class="top-bar">
             <div class="dark-mode-toggle">
@@ -24,6 +19,14 @@
                 <img src="../images/info.png" alt="Info" />
             </button>
         </div>
+
+        <h1>Website agreement summariser</h1>
+        <!--Buttons begin as "hidden" and are activated by popup.ts-->
+        <!-- At most, 2 buttons will be visible at a time - but in most scenarios - just one.-->
+
+        <button hidden id="privacyPolicyButton">Summarise Privacy Policy</button>
+        <button hidden id="termsConditionsButton">Summarise T&C</button>
+        <button hidden id="genericSummariseButton">Summarise</button>
 
     </div>
 
