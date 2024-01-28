@@ -26,7 +26,7 @@ body {
     width: 0%; /* Width is to be updated by loading.ts */
     height: 100%;
     background-color: #007bff;
-    transition: width 1s ease; /* Smooth animation for fill up of bar*/
+    transition: width 1.5s ease; /* Smooth animation for fill up of bar*/
 }
 
 .dark-theme{

@@ -2,6 +2,7 @@ const characterCountElement:HTMLElement|null = document.getElementById("characte
 const timeElement:HTMLElement|null = document.getElementById("timeElement")
 const progressBar = document.getElementById("progress-bar")
 const headerElement = document.getElementById("header")
+const overTimeElement = document.getElementById("overtime")
 
 // Updates document length / estimated time on initial button press.
 // This needs to be separate from subsequent opens of the popup otherwise
@@ -54,10 +55,23 @@ document.addEventListener('DOMContentLoaded', function () {
         let elapsedSeconds = Math.floor(((time - start) / 1000)) // Time is given in ms, convert
         let remainingTime = estimatedTime - elapsedSeconds
 
-        updateLoadingBar(remainingTime,estimatedTime)
+        // If exceeded the estimated time
+        if(elapsedSeconds > estimatedTime){
+            if(overTimeElement){
+                overTimeElement.hidden = false
+                let overTimeRemainingTime = 800 - elapsedSeconds
+                timeElement!.innerHTML = `Remaining time until timeout: ${overTimeRemainingTime} seconds`
+            }
+
+        }
+        // If not exceeded the estimated time.
+        else{
+            updateLoadingBar(remainingTime,estimatedTime)
+            timeElement!.innerHTML  = `Estimated time: ${remainingTime} seconds remaining`;
+        }
+
         updateHeader()
 
-        timeElement!.innerHTML  = `Estimated time: ${remainingTime} seconds remaining`;
     }, 1000);
 
 })
@@ -73,7 +87,7 @@ function calculateEstimatedTime(documentLength:number){
 
     const rounded_estimation = Math.round(estimate_seconds)
 
-    // Minimum estimated time - 30 seconds
+    // Minimum estimated time - 15 seconds
     if(rounded_estimation < 15){
         return 15
     }
