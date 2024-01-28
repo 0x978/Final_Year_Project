@@ -1,6 +1,7 @@
 const characterCountElement:HTMLElement|null = document.getElementById("characterCount")
 const timeElement:HTMLElement|null = document.getElementById("timeElement")
-
+const progressBar = document.getElementById("progress-bar")
+const headerElement = document.getElementById("header")
 
 // Updates document length / estimated time on initial button press.
 // This needs to be separate from subsequent opens of the popup otherwise
@@ -17,6 +18,8 @@ chrome.runtime.onMessage.addListener( (request) => {
 // Since this script runs again each time the popup is opened, the length needs to be stored somewhere else.
 // Since the length is processed by background.ts anyway, it's stored there and can be received with a message.
 document.addEventListener('DOMContentLoaded', function () {
+    initialiseTheme() // initialise dark or light theme
+
     let estimatedTime = 0
     if(characterCountElement && timeElement){
         chrome.runtime.sendMessage({"message": 'getDocumentLength'}).then((res) =>{
@@ -49,7 +52,12 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(() => { // update elapsed time each second
         let time = Date.now()
         let elapsedSeconds = Math.floor(((time - start) / 1000)) // Time is given in ms, convert
-        timeElement!.innerHTML  = `Estimated time: ${estimatedTime - elapsedSeconds} seconds remaining`;
+        let remainingTime = estimatedTime - elapsedSeconds
+
+        updateLoadingBar(remainingTime,estimatedTime)
+        updateHeader()
+
+        timeElement!.innerHTML  = `Estimated time: ${remainingTime} seconds remaining`;
     }, 1000);
 
 })
@@ -66,8 +74,8 @@ function calculateEstimatedTime(documentLength:number){
     const rounded_estimation = Math.round(estimate_seconds)
 
     // Minimum estimated time - 30 seconds
-    if(rounded_estimation < 30){
-        return 30
+    if(rounded_estimation < 15){
+        return 15
     }
 
     return rounded_estimation
@@ -80,3 +88,34 @@ chrome.runtime.onMessage.addListener( (request) => {
         location.href = "../HTML/error.html"
     }
 })
+
+function updateLoadingBar(remainingTime:number,estimatedTime:number){
+    // subtract 1 from remaining time divided by estimated time *100 to get % time elapsed
+    const progressWidth = (1 - remainingTime / estimatedTime) * 100;
+    progressBar!.style.width = progressWidth + '%';
+}
+
+function initialiseTheme(){
+    let mainDiv = document.getElementById("main-div")
+    chrome.storage.sync.get(["isDark"], (result) => {
+        const isDark = result["isDark"]
+        if (!isDark && mainDiv) {
+            mainDiv.classList.remove("dark-theme")
+        }
+    });
+}
+
+// Changes the h1 header element to have a bit more feedback, appending an extra dot.
+// If it currently has 3 dots, set back to 1.
+// Livens up the UI while loading
+function updateHeader(){
+    if(headerElement){
+        let headerText = headerElement.innerText
+        if(headerText === "Summarising..."){
+            headerElement.innerText = "Summarising."
+        }
+        else{
+            headerElement.innerText = headerText + "."
+        }
+    }
+}

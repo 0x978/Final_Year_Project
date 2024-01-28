@@ -61,7 +61,7 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if(request.message === "setLoading"){
         startTime = Date.now()
         documentLength = request.documentLength
-        void chrome.action.setPopup({popup: "HTML/Loading.html"});
+        void chrome.action.setPopup({popup: "HTML/loading.html"});
         void chrome.runtime.sendMessage({"message": `send_summary_length`,"doc_length":documentLength})
         void chrome.runtime.sendMessage({"message": `send_start_time`,"time":startTime})
 

@@ -85,7 +85,7 @@ async function initialiseButton(button: HTMLButtonElement, documentType:document
         let tab = await getCurrentUserTab()
 
         // Change popup HTML to "Loading"
-        location.href = '../HTML/Loading.html'
+        location.href = '../HTML/loading.html'
 
         // Sends message to summariser script to summarise the current page.
         // "RequestType" is either T&Cs or privacy policies
