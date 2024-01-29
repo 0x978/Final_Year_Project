@@ -42,11 +42,12 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
         docType = request.doctype
         pageURL = request.pageURL
 
-        if(received_summary === undefined){ // if the received summary is undefined - an error occurred in summarisation
-            // set default popup to error.html
-            void chrome.action.setPopup({popup: "HTML/error.html"})
+        // if the received summary is undefined - an error occurred in summarisation - handle it.
+        if(received_summary === undefined){
+            // Open new tab with error screen.
+            void chrome.tabs.create({url: "HTML/error.html"})
             // set current popup to error html by sending message to loading.ts saying an error occurred
-            void chrome.runtime.sendMessage({"message": `summariser_error`})
+            void chrome.action.setPopup({popup: "HTML/popup.html"});
         }
 
         else{
