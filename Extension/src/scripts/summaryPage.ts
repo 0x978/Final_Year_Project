@@ -24,6 +24,8 @@ function summaryToBulletPoints(inputString: string): string {
     return liElements.join('\n'); // Join the string array into a string, separated by new lines.
 }
 
+// Initialise classification elements with appropriate details.
+// Initialises the rating image and a short description of what the rating means
 function initialiseClassification(summary:string, docType:string, websiteName:string){
     let description = document.getElementById("ratingDescription")
     let ratingImage = document.getElementById("ratingImage") as HTMLImageElement
@@ -60,6 +62,11 @@ function initialiseClassification(summary:string, docType:string, websiteName:st
 // Removes extra detail from a given URL
 // e.g: "https://www.example.com/ becomes "example.com"
 function stripURL(url: string): string{
+
+    if(!url){
+        return "this service"
+    }
+
     // Regex for removing the domain name from a URL
     // Regex from: https://stackoverflow.com/questions/25703360/regular-expression-extract-subdomain-domain
     const domainRegex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/;
