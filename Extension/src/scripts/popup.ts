@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let privacyPolicyButton = document.getElementById('privacyPolicyButton');
     let termsConditionsButton = document.getElementById("termsConditionsButton")
     let genericSummariseButton = document.getElementById("genericSummariseButton")
+    let mainDiv = document.getElementById("main-div")
+
+    mainDiv && initialiseTopBar(mainDiv)
 
     // Null check
     if (privacyPolicyButton === null || termsConditionsButton === null) {
@@ -82,7 +85,7 @@ async function initialiseButton(button: HTMLButtonElement, documentType:document
         let tab = await getCurrentUserTab()
 
         // Change popup HTML to "Loading"
-        location.href = '../HTML/Loading.html'
+        location.href = '../HTML/loading.html'
 
         // Sends message to summariser script to summarise the current page.
         // "RequestType" is either T&Cs or privacy policies
@@ -135,7 +138,7 @@ function parseDocumentType(document:string):documentTypes|undefined {
             terms_flag = true
             if(next_word && terms_second_words.includes(next_word)){
                 if(third_word && terms_third_words.includes(third_word)){
-                    if(prevWord === "this"){
+                    if(prevWord === "this" || prevWord === "these"){
                         return "Terms and Conditions"
                     }
                     if(termsMatchIndex === Infinity){
@@ -147,7 +150,7 @@ function parseDocumentType(document:string):documentTypes|undefined {
 
         if(word && privacy_first_words.includes(word)){
             if(next_word && privacy_second_words.includes(next_word)){
-                if(prevWord === "this"){
+                if(prevWord === "this" || prevWord === "these"){
                     return "Privacy Policy"
                 }
                 if(privacyMatchIndex === Infinity){
@@ -193,4 +196,33 @@ function parseDocumentTypeFromPath(path:string):documentTypes|undefined{
     }
 
     return undefined
+}
+
+function initialiseTopBar(mainDiv: HTMLElement) {
+    chrome.storage.sync.get(["isDark"], (result) => {
+        const isDark = result["isDark"]
+        if (!isDark) {
+            mainDiv.classList.remove("dark-theme")
+        }
+    });
+
+    const toggleDarkModeButton = document.getElementById("toggle-dark-mode") as HTMLInputElement;
+    const infoButton = document.getElementById("Info");
+
+    toggleDarkModeButton && toggleDarkModeButton.addEventListener('change', () => {
+        chrome.storage.sync.get("isDark", (result) => {
+            const isDark = result["isDark"]
+            if (isDark) {
+                mainDiv.classList.remove("dark-theme")
+            } else {
+                mainDiv.classList.add("dark-theme")
+            }
+            // Invert setting in memory
+            chrome.storage.sync.set({ "isDark": !isDark })
+        });
+    });
+
+    infoButton && infoButton.addEventListener('click', () => {
+        window.open("https://www.google.com");
+    });
 }

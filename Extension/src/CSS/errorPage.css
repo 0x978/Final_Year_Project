@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    font-family: Verdana, serif;
+    background-color: #f5f5f5;
+    font-size: large;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+li{
+    margin-top: 3px;
+    font-size: larger;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 150px;
+    font-weight: bold;
+}
+
+button:hover{
+    transform: translateY(2px);
+    background-color: #1188ff;
+}
+
+button:active{
+    transform: translateY(-2px);
+}
+
+
+/*Dark theme styles*/
+.dark-theme{
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-theme button{
+    background-color: #ff9800;
+    color: #3e3b3b;
+}
+
+.dark-theme button:hover{
+    background-color: #fba50b;
+}

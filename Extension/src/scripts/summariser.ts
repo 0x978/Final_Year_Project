@@ -12,9 +12,9 @@ interface requestType{
 chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if (request.message === "summarise_terms") {
         let documentType = request.requestType
-        console.log("received summary request")
         changeIcon("on")
         let pageContent = scrape_page()
+        let pageURL = document.URL
         void chrome.runtime.sendMessage({"message": "setLoading", "documentLength":pageContent.length});
 
         (async () => {
@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
             // Pass the summary to "background.ts" - which will then open a new tab.
             void chrome.runtime.sendMessage({"message": "receive_response", "summary":res.summarized_text,
-                "classification":res.classification});
+                "classification":res.classification, "doctype":documentType, "pageURL":pageURL});
         })();
         return true
 

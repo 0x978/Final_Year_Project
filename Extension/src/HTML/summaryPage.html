@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../CSS/summaryPageCSS.css">
+    <link rel="stylesheet" href="../CSS/summaryPage.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-    <!--Default text to error, it's updated by displaySummary.ts-->
-    <h3 id="ratingElement">Error</h3>
-    <ul id="summaryPoints">Error</ul>
+<body id="main-div" class="dark-theme">
+
+    <div class="container">
+        <h2 id="title"></h2>
+
+
+        <div id="ratingContainer">
+            <h2 id="ratingElement"></h2>
+            <img src="" id="ratingImage">
+        </div>
+
+        <p id="ratingDescription"></p>
+        <h4 id="descriptionHeader"></h4>
+
+        <ul id="summaryPoints"></ul>
+    </div>
+
 </body>
 <!--Script file is .js, as it is compiled into js from ts upon build-->
-<script src="../scripts/displaySummary.js"></script>
+<script src="../scripts/summaryPage.js"></script>
 </html>

@@ -1,16 +1,33 @@
 <html>
-<link rel="stylesheet" href="../CSS/styles.css">
+<link rel="stylesheet" href="../CSS/popup.css">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T&C Summarizer</title>
 </head>
+
 <body>
-    <div class="popup-container">
+    <div id="main-div" class="popup-container dark-theme">
+
+        <div class="top-bar">
+            <div class="dark-mode-toggle">
+                <input type="checkbox" id="toggle-dark-mode" class="checkbox">
+                <label for="toggle-dark-mode" class="label"></label>
+            </div>
+            <button class="infoButton" id="Info">
+                <img src="../images/info.png" alt="Info" />
+            </button>
+        </div>
+
         <h1>Website agreement summariser</h1>
+        <!--Buttons begin as "hidden" and are activated by popup.ts-->
+        <!-- At most, 2 buttons will be visible at a time - but in most scenarios - just one.-->
+
         <button hidden id="privacyPolicyButton">Summarise Privacy Policy</button>
         <button hidden id="termsConditionsButton">Summarise T&C</button>
         <button hidden id="genericSummariseButton">Summarise</button>
+
     </div>
 
     <!--Script file is .js, as it is compiled into js from ts upon build-->

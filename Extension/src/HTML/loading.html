@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="../CSS/loading.css">
+        <meta charset="UTF-8">
+        <title>Loading...</title>
+    </head>
+
+    <body>
+        <div id="main-div" class="loading-container dark-theme">
+            <h1 id="header">Summarising.</h1>
+            <h3 id = "characterCount"></h3>
+            <h3 hidden id="overtime">Summarisation is taking longer than expected...</h3>
+            <h3 id = "timeElement"></h3>
+
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+
+        </div>
+    </body>
+
+    <!--Script file is .js, as it is compiled into js from ts upon build-->
+    <script src="../scripts/loading.js"></script>
+</html>
