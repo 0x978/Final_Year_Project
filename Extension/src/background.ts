@@ -5,6 +5,8 @@ let received_summary:string|undefined = undefined
 let classification:string|undefined = undefined
 let documentLength:number|undefined = undefined
 let startTime:number|undefined = undefined
+let docType:string|undefined = undefined
+let pageURL:string|undefined = undefined
 
 chrome.runtime.onInstalled.addListener(() => {
     // initialise badge to off
@@ -37,6 +39,8 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if (request.message === "receive_response"){
         received_summary = request.summary // stores the summary in variable "received_summary"
         classification = request.classification
+        docType = request.doctype
+        pageURL = request.pageURL
 
         if(received_summary === undefined){ // if the received summary is undefined - an error occurred in summarisation
             // set default popup to error.html
@@ -53,7 +57,8 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
 
     // sends the stored summary to the requester.
     if(request.message === "fetch_summary"){
-        sendResponse({"summary":received_summary,"classification":classification})
+        sendResponse({"summary":received_summary,"classification":classification, "docType":docType,
+        "pageURL":pageURL})
     }
 
     // Changes the popup HTML to a loading HTML.
