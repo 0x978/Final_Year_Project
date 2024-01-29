@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if(elapsedSeconds > estimatedTime){
             if(overTimeElement){
                 overTimeElement.hidden = false
+                progressBar!.hidden = true
                 let overTimeRemainingTime = 800 - elapsedSeconds
                 timeElement!.innerHTML = `Remaining time until timeout: ${overTimeRemainingTime} seconds`
             }
