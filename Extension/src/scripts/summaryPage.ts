@@ -5,6 +5,7 @@ let titleElement = document.getElementById("title")
 
 // fetch the produced summary from background.ts after the page has loaded.
 document.addEventListener('DOMContentLoaded', function () {
+    initLightTheme()
     chrome.runtime.sendMessage({"message": `fetch_summary`}).then((res) =>{
         let siteName = stripURL(res.pageURL)
         titleElement!.innerText = `Summary for ${siteName}'s ${res.docType}`
@@ -77,4 +78,14 @@ function stripURL(url: string): string{
     } else { // If no match, return "this service"
         return "this service";
     }
+}
+
+function initLightTheme(){
+    let mainDiv = document.getElementById("main-div")
+    chrome.storage.sync.get(["isDark"], (result) => {
+        const isDark = result["isDark"]
+        if (!isDark && mainDiv) {
+            mainDiv.classList.remove("dark-theme")
+        }
+    });
 }

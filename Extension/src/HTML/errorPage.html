@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <link rel="stylesheet" href="../CSS/errorPage.css">
+            <meta charset="UTF-8">
+            <title>ERROR</title>
+        </head>
+            <body id="main-div" class="dark-theme">
+            <div class="container">
+                <h1>Error</h1>
+                <h3 id="errorExplanation">An error has occurred during summarisation, for one of the following reasons:</h3>
+                <ul id="reasonList">
+                    <li>The server is currently <b>busy processing another request</b></li>
+                    <li>The summarisation server has crashed</li>
+                    <li>Your request timed out (exceeded 480 seconds)</li>
+                </ul>
+                <h3>If this error keeps occurring, please try again in 10 minutes.</h3>
+                <button id="errorButton">Return</button>
+            </div>
+        </body>
+
+        <!--Script file is .js, as it is compiled into js from ts upon build-->
+        <script src="../scripts/errorPage.js"></script>
+</html>
