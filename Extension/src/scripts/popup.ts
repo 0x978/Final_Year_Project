@@ -138,7 +138,7 @@ function parseDocumentType(document:string):documentTypes|undefined {
             terms_flag = true
             if(next_word && terms_second_words.includes(next_word)){
                 if(third_word && terms_third_words.includes(third_word)){
-                    if(prevWord === "this"){
+                    if(prevWord === "this" || prevWord === "these"){
                         return "Terms and Conditions"
                     }
                     if(termsMatchIndex === Infinity){
@@ -150,7 +150,7 @@ function parseDocumentType(document:string):documentTypes|undefined {
 
         if(word && privacy_first_words.includes(word)){
             if(next_word && privacy_second_words.includes(next_word)){
-                if(prevWord === "this"){
+                if(prevWord === "this" || prevWord === "these"){
                     return "Privacy Policy"
                 }
                 if(privacyMatchIndex === Infinity){
