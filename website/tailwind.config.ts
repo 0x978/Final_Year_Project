@@ -16,7 +16,12 @@ const config: Config = {
       colors: {
         goldenOrange:"#ff9800",
         goldenOrangeHover:"#faa331",
-        darkGray: "#333"
+        darkGray: "#333",
+        lighterGray: "#888",
+        gold:"#FFD700",
+        offWhite:"#ededed",
+        offWhiteHover:"#cacaca",
+
       },
     },
   },
