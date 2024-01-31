@@ -7,6 +7,9 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ['Verdana']
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -21,6 +24,9 @@ const config: Config = {
         gold:"#FFD700",
         offWhite:"#ededed",
         offWhiteHover:"#cacaca",
+        buttonGray:"#0a0a0a",
+        buttonDarkBorder: "#252525",
+        buttonDarkHover:""
 
       },
     },
