@@ -19,7 +19,7 @@ const Index: FC<IndexProps> = ({}) => {
 
     return (
         <main className="min-h-screen bg-black flex flex-col justify-between">
-            <Header />
+            <Header active={"home"} />
             <div className="flex flex-col justify-center items-center text-center text-gray-300 flex-grow ">
                 <div>
                     <h1 className="text-7xl mb-12 font-bold">

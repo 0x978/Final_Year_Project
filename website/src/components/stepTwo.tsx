@@ -7,14 +7,17 @@ const stepTwo = () => {
     return (
             <div className="text-center">
                 <h1 className={"text-4xl font-bold mb-4"}>Step Two:</h1>
-                <h2>Extract the file into a folder by right clicking it and pressing "extract all"</h2>
-                <h2>If done correctly, you should end up with two folders, "release.zip" and "release".</h2>
-                <Image
-                    src={stepTwoImage}
-                    width={750}
-                    height={750}
-                    alt="Instructional image for extracting the file."
-                />
+                <h2>Navigate to where you installed the file and extract it by right-clicking it and clicking "extract-all"</h2>
+                <h2>If done correctly, you should end up with two files, "PolicyPal.zip" and "PolicyPal".</h2>
+
+                <div className={"flex justify-center align-middle"}>
+                    <div className={"h-1/2 w-1/2"}>
+                        <Image
+                            src={stepTwoImage}
+                            alt="Instructional image for extracting the file."
+                        />
+                    </div>
+                </div>
             </div>
     )
 }

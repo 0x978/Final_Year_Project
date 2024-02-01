@@ -1,41 +1,43 @@
-import {FC, useState} from "react"
+import {FC} from "react";
+import Header from "@/components/header";
+import {useRouter} from "next/router";
 
-import StepOne from "../components/stepOne"
-import StepTwo from "../components/stepTwo"
-import StepThree from "../components/stepThree"
-import StepFour from "../components/stepFour"
 
-const GetStarted: FC= ({}) => {
-    const [step, setStep] = useState(1)
+interface GetStartedProps {
+}
 
+const GetStarted: FC<GetStartedProps> = () => {
+    let router = useRouter()
     return (
-        <main className="flex h-screen justify-center items-center bg-black text-gray-300">
-            <div className={"text-center"}>
-                {step === 1 && <StepOne/>}
-                {step === 2 && <StepTwo/>}
-                {step === 3 && <StepThree/>}
-                {step === 4 && <StepFour/>}
+        <main className="min-h-screen bg-black flex flex-col justify-between">
+            <Header active={"get started"}/>
+            <div className="flex flex-col justify-center items-center text-center text-gray-300 flex-grow ">
 
+                <div className="">
+                    <h1 className="text-5xl mb-8 font-bold">Get Started</h1>
+                    <p className="text-lg mb-2">Install the Google Chrome extension to start using PolicyPal.</p>
+                    <p className="text-lg mb-8">The installation process is <b> simple</b> and will take just a <b>couple minutes</b></p>
 
-                <div className={"mt-8"}>
-
-                    {step > 1 &&
-                        <button className="bg-goldenOrange hover:bg-goldenOrangeHover hover:-translate-y-1
-                             active:translate-y-1 text-white font-bold py-2 px-4 rounded w-40 mx-2"
-                                onClick={() => setStep(prevState => prevState - 1)}>
-                            Previous Step
-                        </button>}
-
-                    <button className="bg-goldenOrange hover:bg-goldenOrangeHover hover:-translate-y-1
-                 active:translate-y-1 text-white font-bold py-2 px-4 rounded w-40"
-                            onClick={() => setStep(prevState => prevState + 1)}>
-                        Next Step
-                    </button>
+                    <div
+                        className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                        <button onClick={() => router.push("https://www.youtube.com/")}
+                                className="bg-offWhite hover:bg-offWhiteHover hover:-translate-y-1 active:translate-y-1
+                           text-black font-bold py-3 px-6 rounded w-full md:w-auto">
+                            Watch Installation Video
+                        </button>
+                        <button onClick={() => router.push("/installation-guide")}
+                                className="bg-buttonGray hover:bg-buttonDarkBorder hover:-translate-y-1 active:translate-y-1
+                            text-white font-bold py-3 px-6 rounded w-full md:w-auto border-buttonDarkBorder border">
+                            View Installation Guide
+                        </button>
+                    </div>
                 </div>
 
             </div>
         </main>
-    )
-}
+    );
+};
 
-export default GetStarted
+
+export default GetStarted;
+
