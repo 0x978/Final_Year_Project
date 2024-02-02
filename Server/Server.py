@@ -30,6 +30,7 @@ def summarise_input():
 
     # Surround summarisation in try/except to prevent server crash on failure in running models
     try:
+        print(f'------------------------Received document of type {document_type}------------------------')
         summarised_text = None
         if document_type == "Privacy Policy":
             summarised_text = summariser_privacy(document)
@@ -37,6 +38,7 @@ def summarise_input():
             summarised_text = summariser_tos(document)
 
         if summarised_text is None:
+            print("------------------------ERROR: Summary failed------------------------")
             return jsonify({'error': "Failed to summarise"}), 500
 
         classification = classify_summary(summarised_text)
@@ -45,9 +47,12 @@ def summarise_input():
         response = jsonify({'summarized_text': summarised_text, "classification": classification})
         response.headers.add('Access-Control-Allow-Origin', '*')
 
+        print(f'------------------------Produced summary of length {len(summarised_text)}------------------------')
+
         return response
 
     except Exception as e:
+        print(f'------------------------ERROR: Uncontrolled Error {e}------------------------')
         return jsonify({'error': str(e)}), 500
 
 
