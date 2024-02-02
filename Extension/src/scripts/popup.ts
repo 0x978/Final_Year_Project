@@ -199,19 +199,29 @@ function parseDocumentTypeFromPath(path:string):documentTypes|undefined{
 }
 
 function initialiseTopBar(mainDiv: HTMLElement) {
-    chrome.storage.sync.get(["isDark"], (result) => {
-        const isDark = result["isDark"]
-        if (!isDark) {
-            mainDiv.classList.remove("dark-theme")
-        }
-    });
 
     const toggleDarkModeButton = document.getElementById("toggle-dark-mode") as HTMLInputElement;
     const infoButton = document.getElementById("Info");
 
+    chrome.storage.sync.get(["isDark"], (result) => {
+        const isDark = result["isDark"]
+        if (!isDark) {
+            // disable transition on swap of theme when popup is opened, so it doesn't do a transition every time.
+            mainDiv!.classList.add('notransition');
+            mainDiv.classList.remove("dark-theme")
+            toggleDarkModeButton.checked = true
+            toggleDarkModeButton.textContent = '🌞'
+        }
+    });
+
+
+    // Toggles dark theme on press
     toggleDarkModeButton && toggleDarkModeButton.addEventListener('change', () => {
         chrome.storage.sync.get("isDark", (result) => {
+            mainDiv!.classList.remove('notransition'); // remove no transition property if it is currently on
+
             const isDark = result["isDark"]
+            // Do opposite to what is in memory when button is pressed
             if (isDark) {
                 mainDiv.classList.remove("dark-theme")
             } else {
@@ -223,6 +233,6 @@ function initialiseTopBar(mainDiv: HTMLElement) {
     });
 
     infoButton && infoButton.addEventListener('click', () => {
-        window.open("https://www.google.com");
+        window.open("https://www.policypal.0x978.com");
     });
 }

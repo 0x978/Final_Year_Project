@@ -21,11 +21,11 @@ h1 {
 }
 
 #policy{
-    color:#7dd3fc
+    color:#38bdf8
 }
 
 #pal{
-    color:#fca5a5
+    color:#f87171
 }
 
 button {
@@ -113,6 +113,14 @@ button:active{
     filter: invert(100%) sepia(1%) saturate(0%) hue-rotate(136deg) brightness(104%) contrast(102%);
 }
 
+.dark-theme #policy{
+    color:#93c5fd
+}
+
+.dark-theme #pal{
+    color:#fca5a5
+}
+
 /*Dark Theme toggle Checkbox stuff*/
 
 .dark-mode-toggle {
@@ -165,4 +173,9 @@ button:active{
     left: 5px;
     font-size: 16px;
     transition: left 1s ease;
+}
+
+/*Disables transitions on elements*/
+.notransition {
+    transition: none !important;
 }
