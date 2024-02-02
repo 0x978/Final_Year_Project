@@ -26,6 +26,8 @@ def summarise_input():
     if not document or not document_type:  # If nothing is passed in - or some error occurs in parsing
         return jsonify({"error": "Document not received by the server."}), 400
 
+    document = document[:60000] # Enforce 60,000-character limit on server
+
     # Surround summarisation in try/except to prevent server crash on failure in running models
     try:
         summarised_text = None
