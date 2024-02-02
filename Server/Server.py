@@ -30,7 +30,7 @@ def summarise_input():
 
     # Surround summarisation in try/except to prevent server crash on failure in running models
     try:
-        print(f'------------------------Received document of type {document_type}------------------------')
+        print(f'------------------------ Received {document_type} of length {len(document)}------------------------')
         summarised_text = None
         if document_type == "Privacy Policy":
             summarised_text = summariser_privacy(document)

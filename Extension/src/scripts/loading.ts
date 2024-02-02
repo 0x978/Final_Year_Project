@@ -13,6 +13,9 @@ chrome.runtime.onMessage.addListener( (request) => {
         let documentLength = request.doc_length
         let estimatedTime = calculateEstimatedTime(documentLength)
         characterCountElement.innerHTML = `Document length: ${documentLength}`
+        if(documentLength == 60000){
+            characterCountElement.innerHTML += " (maximum)"
+        }
         timeElement.innerHTML = `Estimated time: ${estimatedTime} seconds remaining`
     }
 })
