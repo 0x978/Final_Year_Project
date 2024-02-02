@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "TOS / Privacy Policy Summariser",
+  "name": "PolicyPal",
   "description": "Summarises terms and conditions and privacy policies.",
   "version": "1.0",
   "action": {

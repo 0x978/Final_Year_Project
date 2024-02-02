@@ -15,9 +15,17 @@ body {
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 32px;
     margin-top: 1px;
     margin-bottom: 20px;
+}
+
+#policy{
+    color:#7dd3fc
+}
+
+#pal{
+    color:#fca5a5
 }
 
 button {
