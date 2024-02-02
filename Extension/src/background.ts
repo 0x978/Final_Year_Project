@@ -54,6 +54,10 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
             void chrome.action.setPopup({popup: "HTML/popup.html"});
             void chrome.tabs.create({url: "HTML/summaryPage.html"})
         }
+        // Resetting documentLength and start time to undefined after summary is sent.
+        // This hack prevents a bug with time estimation during race conditions in loading.ts
+        documentLength = undefined
+        startTime = undefined
     }
 
     // sends the stored summary to the requester.
