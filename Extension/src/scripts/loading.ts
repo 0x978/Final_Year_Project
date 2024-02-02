@@ -4,9 +4,10 @@ const progressBar = document.getElementById("progress-bar")
 const headerElement = document.getElementById("header")
 const overTimeElement = document.getElementById("overtime")
 
-// Updates document length / estimated time on initial button press.
-// This needs to be separate from subsequent opens of the popup otherwise
-// there is a race condition with the length being calculated by background.ts
+// Displays initial document length / estimated time on initial press of the "summarise" button.
+// This receives a message from background.ts just once - when it has received the document length from summariser.ts
+// Thus this method is *faster* but only works on initial press of the summarisation button.
+// The next function down in this file handles updating estimated time and subsequent opens of the popup.
 chrome.runtime.onMessage.addListener( (request) => {
     if (request.message == "send_summary_length" && characterCountElement && timeElement) {
         let documentLength = request.doc_length
@@ -16,9 +17,10 @@ chrome.runtime.onMessage.addListener( (request) => {
     }
 })
 
-// Updates document length / estimated time on subsequent opening of popup.
+// Sets document length / estimated time on subsequent opening of popup as well as updating remaining time.
 // Since this script runs again each time the popup is opened, the length needs to be stored somewhere else.
-// Since the length is processed by background.ts anyway, it's stored there and can be received with a message.
+// Since the length is processed by background.ts anyway, it's stored there and can be fetched with a runtime message.
+// However, extra precautions are taken in this event listener in case the length is fetched from background.ts too early.
 document.addEventListener('DOMContentLoaded', function () {
     initialiseTheme() // initialise dark or light theme
 
