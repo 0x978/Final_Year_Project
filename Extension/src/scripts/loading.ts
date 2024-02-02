@@ -11,6 +11,7 @@ chrome.runtime.onMessage.addListener( (request) => {
     if (request.message == "send_summary_length" && characterCountElement && timeElement) {
         let documentLength = request.doc_length
         let estimatedTime = calculateEstimatedTime(documentLength)
+        characterCountElement.innerHTML = `Document length: ${documentLength}`
         timeElement.innerHTML = `Estimated time: ${estimatedTime} seconds remaining`
     }
 })
@@ -25,7 +26,17 @@ document.addEventListener('DOMContentLoaded', function () {
     if(characterCountElement && timeElement){
         chrome.runtime.sendMessage({"message": 'getDocumentLength'}).then((res) =>{
             estimatedTime = calculateEstimatedTime(res.docLength)
+
+            // If the estimated time failed to calculate, exit early and do not update any elements.
+            if(!estimatedTime){
+                return
+            }
+
             characterCountElement.innerHTML = `Document length: ${(res.docLength)}`
+            if(res?.docLength == 60000){
+                characterCountElement.innerHTML += " (maximum)"
+            }
+
             timeElement.innerHTML = `Estimated time: ${estimatedTime} seconds`
         })
     }
@@ -33,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Calculates the amount of time that has passed since the summarisation process has started and displays it
     // Calculated via the difference between the current time and the start time - with the start time sourced from background.ts
-    // It is necessary to do this, and not just start a timer, as the state of the popup is forgotten each time it is open
-    // And thus the elapsed time is forgotten each time the popup is open
+    // It is necessary to do this, and not just start a timer, as the state of the popup is forgotten each time it is opened
+    // And thus the elapsed time is forgotten each time the popup is opened
     let start:number = 0
 
     // Sets start time on initial popup open
@@ -50,17 +61,30 @@ document.addEventListener('DOMContentLoaded', function () {
         start = res.time
     })
 
-    setInterval(() => { // update elapsed time each second
+    setInterval(() => { // update remaining time each second
+
+        // This is a really rough workaround for a race condition between this function and background.ts
+        // In very long documents the loading html loads before the background script has obtained the document length.
+        // This solution is sub-par, and just repeatedly asks background.ts for the estimated time, until it has it.
+        // This is unnoticeable to the user thanks to the runtime listener at the start of this file.
+        // If I had more time, I would find a better solution to this.
+        if(!estimatedTime){
+            chrome.runtime.sendMessage({"message": 'getDocumentLength'}).then((res) => {
+                estimatedTime = calculateEstimatedTime(res.docLength)
+            })
+            return
+        }
+
         let time = Date.now()
         let elapsedSeconds = Math.floor(((time - start) / 1000)) // Time is given in ms, convert
         let remainingTime = estimatedTime - elapsedSeconds
 
-        // If exceeded the estimated time
+        // If exceeded the estimated time, display a different message
         if(elapsedSeconds > estimatedTime){
             if(overTimeElement){
                 overTimeElement.hidden = false
                 progressBar!.hidden = true
-                let overTimeRemainingTime = 800 - elapsedSeconds
+                let overTimeRemainingTime = 480 - elapsedSeconds
                 timeElement!.innerHTML = `Remaining time until timeout: ${overTimeRemainingTime} seconds`
             }
 
@@ -71,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             timeElement!.innerHTML  = `Estimated time: ${remainingTime} seconds remaining`;
         }
 
+        // Updates the text in the loading html, for extra feedback.
         updateHeader()
 
     }, 1000);

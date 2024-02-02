@@ -13,9 +13,11 @@ chrome.runtime.onMessage.addListener( (request,_,sendResponse) => {
     if (request.message === "summarise_terms") {
         let documentType = request.requestType
         changeIcon("on")
-        let pageContent = scrape_page()
+        // Get the relevant page content - limit this to 60,000 characters due to server constraints.
+        let pageContent = scrape_page().substring(0,60000)
+        let pageLength = pageContent.length
         let pageURL = document.URL
-        void chrome.runtime.sendMessage({"message": "setLoading", "documentLength":pageContent.length});
+        void chrome.runtime.sendMessage({"message": "setLoading", "documentLength":pageLength});
 
         (async () => {
             const res = await receiveSummary(pageContent,documentType);
