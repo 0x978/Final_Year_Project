@@ -25,6 +25,10 @@ const InstallationGuide: FC = ({}) => {
                     Install
                 </button>
 
+                <iframe width="800" height="400" src="https://www.youtube.com/embed/Uo0384RAaU0?si=tsVtC18PkweewWJa"
+                        title="YouTube video player" frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen></iframe>
 
             </div>
         </main>
