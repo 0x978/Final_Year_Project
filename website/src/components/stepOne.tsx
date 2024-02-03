@@ -15,7 +15,7 @@ const StepOne: FC<stepOneProps> = ({}) => {
                 <h2 className={"text-xl mb-8"}> <b> Make sure to note where you have installed it, </b> as we will need it in the next step</h2>
                 <button className="bg-offWhite hover:bg-offWhiteHover hover:-translate-y-1 active:translate-y-1
                            text-black font-bold py-3 px-6 rounded mx-3 w-44"
-                        onClick={() => router.push("https://github.com/0x978/Final_Year_Project/releases/download/beta/ReleaseBeta.zip")}>
+                        onClick={() => router.push("https://github.com/0x978/Final_Year_Project/releases/download/1.0/PolicyPal.zip")}>
                     Install
                 </button>
             </div>
