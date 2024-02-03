@@ -20,7 +20,7 @@ const GetStarted: FC<GetStartedProps> = () => {
 
                     <div
                         className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-                        <button onClick={() => router.push("https://www.youtube.com/")}
+                        <button onClick={() => router.push("/youtube-steps")}
                                 className="bg-offWhite hover:bg-offWhiteHover hover:-translate-y-1 active:translate-y-1
                            text-black font-bold py-3 px-6 rounded w-full md:w-auto">
                             Watch Installation Video
