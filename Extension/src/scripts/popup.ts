@@ -6,20 +6,27 @@
 type documentTypes = "Privacy Policy" | "Terms and Conditions"
 
 document.addEventListener('DOMContentLoaded', function () {
-    let privacyPolicyButton = document.getElementById('privacyPolicyButton');
-    let termsConditionsButton = document.getElementById("termsConditionsButton")
-    let genericSummariseButton = document.getElementById("genericSummariseButton")
+    let privacyPolicyButton = document.getElementById('privacyPolicyButton')  as HTMLButtonElement
+    let termsConditionsButton = document.getElementById("termsConditionsButton")  as HTMLButtonElement
+    let genericSummariseButton = document.getElementById("genericSummariseButton")  as HTMLButtonElement
+    const incorrectElement = document.getElementById("incorrectText")
+    const incorrectElementDiv = document.getElementById("incorrectDiv")
     let mainDiv = document.getElementById("main-div")
+
 
     mainDiv && initialiseTopBar(mainDiv)
 
     // Null check
-    if (privacyPolicyButton === null || termsConditionsButton === null) {
+    if (privacyPolicyButton === null || termsConditionsButton === null || incorrectElementDiv === null) {
         return
     }
 
-    void initialiseButtons(privacyPolicyButton as HTMLButtonElement,termsConditionsButton as HTMLButtonElement
-        ,genericSummariseButton as HTMLButtonElement)
+    void initialiseButtons(privacyPolicyButton,termsConditionsButton,genericSummariseButton,incorrectElementDiv)
+
+    if(incorrectElement){
+        initIncorrectButtons(privacyPolicyButton,termsConditionsButton,genericSummariseButton,incorrectElement,
+            incorrectElementDiv)
+    }
 
     // If the extension badge is currently set as "done", set it to "OFF" when the user opens the extension popup.
     chrome.action.getBadgeText({}, (badgeText) => {
@@ -41,7 +48,7 @@ async function getCurrentUserTab() {
 // If uncertain, enable both buttons.
 // It sources the information regarding the page content and URL path from summariser.ts who has access to this info
 async function initialiseButtons(privacyPolicyButton:HTMLButtonElement,termsConditionsButton:HTMLButtonElement,
-                                 genericSummariseButton:HTMLButtonElement) {
+                                 genericSummariseButton:HTMLButtonElement, incorrectElementDiv:HTMLElement) {
 
     let tab = await getCurrentUserTab()
     let res = tab?.id && await chrome.tabs.sendMessage(tab.id, {
@@ -63,7 +70,10 @@ async function initialiseButtons(privacyPolicyButton:HTMLButtonElement,termsCond
         void initialiseButton(termsConditionsButton,"Terms and Conditions")
     }
 
-    else{ // Document type was inferred, initialise a relevant button.
+        // Document type was inferred, initialise a relevant button
+        // Also initialise a button which can be pressed if the inferred button is incorrect.
+    else{
+        incorrectElementDiv.hidden = false
         genericSummariseButton.innerHTML = `Summarise ${documentType}`
         void initialiseButton(genericSummariseButton,documentType)
     }
@@ -235,4 +245,20 @@ function initialiseTopBar(mainDiv: HTMLElement) {
     infoButton && infoButton.addEventListener('click', () => {
         window.open("https://www.policypal.0x978.com");
     });
+}
+
+function initIncorrectButtons(privacyPolicyButton:HTMLButtonElement
+                              ,termsConditionsButton:HTMLButtonElement,
+                              genericSummariseButton:HTMLButtonElement,
+                              incorrectElement:HTMLElement,
+                              incorrectElementDiv:HTMLElement){
+
+    if(incorrectElementDiv){
+        incorrectElement.onclick = (() => {
+            genericSummariseButton.hidden = true
+            incorrectElementDiv.hidden = true
+            void initialiseButton(privacyPolicyButton,"Privacy Policy")
+            void initialiseButton(termsConditionsButton,"Terms and Conditions")
+        })
+    }
 }

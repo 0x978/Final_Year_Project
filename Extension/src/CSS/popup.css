@@ -85,6 +85,40 @@ button:active{
     filter: invert(32%) sepia(81%) saturate(3210%) hue-rotate(200deg) brightness(102%) contrast(107%);
 }
 
+.incorrectClassificationDiv {
+    position: relative;
+    text-align: right;
+    margin-top:-23px;
+    right: 25px; /* Adjust as needed */
+
+}
+
+/*Handling incorrect button styles*/
+.incorrectClassificationText {
+    color: #555;
+    font-size: 12px;
+    text-underline: #555;
+    text-decoration: underline;
+    cursor: pointer;
+    display: inline-block; /* Ensure the text element takes up only the necessary space */
+}
+
+.incorrectClassificationText:hover{
+    color: #ff0000;
+    transform:translateY(-2px)
+}
+
+/*Handling theme styling*/
+.dark-theme .incorrectClassificationText{
+    color: #f0f0f0;
+    text-underline: #f0f0f0;
+}
+
+.dark-theme .incorrectClassificationText:hover{
+    color: #ff0000;
+}
+
+
 .light-theme {
     background-color: #f0f0f0;
     color: #333;
