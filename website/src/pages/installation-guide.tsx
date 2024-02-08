@@ -1,12 +1,12 @@
 import {FC, useState} from "react"
 
-import StepOne from "../components/stepOne"
-import StepTwo from "../components/stepTwo"
-import StepThree from "../components/stepThree"
-import StepFour from "../components/stepFour"
-import StepFive from "../components/stepFive"
-import StepSix from "../components/stepSix";
-import StepSeven from "../components/stepSeven";
+import StepOne from "../components/installSteps/stepOne"
+import StepTwo from "../components/installSteps/stepTwo"
+import StepThree from "../components/installSteps/stepThree"
+import StepFour from "../components/installSteps/stepFour"
+import StepFive from "../components/installSteps/stepFive"
+import StepSix from "../components/installSteps/stepSix";
+import StepSeven from "../components/installSteps/stepSeven";
 
 import Header from "@/components/header";
 

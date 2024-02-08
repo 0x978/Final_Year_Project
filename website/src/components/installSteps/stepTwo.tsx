@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import {useRouter} from "next/router";
-import stepTwoImage from "../images/stepTwoImg.png"
+import stepTwoImage from "../../images/stepTwoImg.png"
 
 const stepTwo = () => {
 

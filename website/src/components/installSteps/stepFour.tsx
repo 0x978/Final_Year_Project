@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import stepFourImg from "../images/stepFourImg.png"
+import stepFourImg from "../../images/stepFourImg.png"
 
 const stepFour = () => {
 
