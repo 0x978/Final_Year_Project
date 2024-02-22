@@ -16,6 +16,20 @@ li{
     margin-top: 3px;
 }
 
+h5.disclaimer {
+    font-size: 14px;
+    color: #666;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
 /*Classification rating image and text div*/
 #ratingContainer {
     display: flex;
