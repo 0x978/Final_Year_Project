@@ -32,7 +32,7 @@ These models were evaluated on the [ROUGE Metric (Lin, 2003)](https://aclantholo
 ![image](https://github.com/0x978/PolicyPal/assets/97891715/2e595df0-4b81-468e-8b8e-21660620a949)
 
 ### Classification Model
-The classificaiton model is evaluated with [Precision and Recall](https://en.wikipedia.org/wiki/Precision_and_recall)
+The classification model is evaluated with [Precision and Recall](https://en.wikipedia.org/wiki/Precision_and_recall)
 ![image](https://github.com/0x978/PolicyPal/assets/97891715/f20f5bb0-40e9-4d58-8661-a460568688d1)
 
 ## User evaluation
@@ -40,6 +40,7 @@ PolicyPal was evaluated by 30 participants, with all participants inclined to co
 stating they felt more informed while using PolicyPal than when without.
 
 Some further highlights include:
+
 ![image](https://github.com/0x978/PolicyPal/assets/97891715/7eac4f08-56f2-4606-980e-265c0ee00a11)
 
 ![image](https://github.com/0x978/PolicyPal/assets/97891715/f2ef7919-c815-41ce-97cc-2a21b2ac345e)
