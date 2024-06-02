@@ -7,18 +7,17 @@ succinct and concise bullet points using Natural Language Processing (NLP).
 
 # How does it work?
 It utilises two custom-trained natural language processing models based on the 
-[Longformer Encoder Decoder Architecture by Beltagy et al](https://arxiv.org/pdf/2004.05150) which was trained through transfer learning
+[Longformer Encoder Decoder Architecture by Beltagy et al](https://arxiv.org/pdf/2004.05150) which were trained through transfer learning
 using [Hugging Face](https://huggingface.co/) on the task of summarising terms and conditions and privacy policies.
 
 Produced summaries are then passed to a custom fine-tuned [BERT](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english)
-model which will then provide each produced summary with a rating, depending on the degree to which the terms and conditions or privacy policy respects your privacy
+model which will then provide each produced summary with a rating (Positive, Neutral, Negative), depending on the degree to which the terms and conditions or privacy policy respects your privacy
 
 # How do I install PolicyPal?
-Currently, the only method is to clone the project and compile it as approval has not been sought from the Google Chrome Store
-(Or check the releases tab).
+One method is to clone the project and compile it as approval has not been sought from the Google Chrome Store
 
-Furthermore, the server has been closed due to high cost ($45/m) but it's capable of running locally as long as
-you have decent hardware.
+A version is also available in the the releases tab however, the server has been closed due to high cost ($45/m) but it's capable of running locally as long as you have decent hardware.
+
 # How did the models perform?
 Overall, the models show major improvements in the field of summarisation of terms and conditions and privacy policies compared to 
 existing models:
